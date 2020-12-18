@@ -1,6 +1,7 @@
 ﻿using BossaTestDataImporter.Imports;
 using BossaWebsite;
 using GnuCash.CommodityPriceImportGenerator;
+using GnuCash.CommodityPriceImportGenerator.PolishTreasuryBonds;
 using GnuCash.TransactionImportGenerator;
 using GnuCash.TransactionImportGenerator.Model;
 using GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.MlNet;
@@ -118,6 +119,39 @@ namespace GnucashPlDataImportGeneratorApp.Forms
         {
             var aboutDialogBox = new AboutDialogBox();
             aboutDialogBox.ShowDialog();
+        }
+
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            button3.Enabled = false;
+
+            var dialog = new OpenFileDialog
+            {
+                CheckFileExists = true,
+                CheckPathExists = true,
+                Filter = "XLS file (*.xls)|*.xls;",
+                Multiselect = false,
+                Title = "Importuj plik"
+            };
+
+            DialogResult result = dialog.ShowDialog();
+
+            if (result != DialogResult.OK)
+            {
+                button3.Enabled = true;
+                return;
+            }
+
+            var bondsPriceImportGenerator = _services.GetService<IPolishTreasuryBondsPriceImportGenerator>();
+
+            var defaultCursor = Cursor.Current;
+            Cursor.Current = Cursors.WaitCursor;
+
+
+            await bondsPriceImportGenerator.GenerateImport(dialog.FileName);
+
+            Cursor.Current = defaultCursor;
+            button3.Enabled = true;
         }
     }
 }

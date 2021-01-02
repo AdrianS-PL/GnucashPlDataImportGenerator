@@ -47,7 +47,7 @@ namespace GnuCash.CommodityPriceImportGenerator
 
 				var instantiatedObject = _serviceProvider.GetService(dataSourceType) as IPriceDataSourceForCommodityNamespace;
 
-				var priceDataForNamespace = await instantiatedObject.GetPricesData();
+				var priceDataForNamespace = await instantiatedObject.GetPricesData(lastPriceDatesInNamespace.Value, _settings.BaseCurrency);
 
 				foreach(var lastPriceDate in lastPriceDatesInNamespace.Value)
                 {

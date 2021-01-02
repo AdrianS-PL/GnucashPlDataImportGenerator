@@ -1,5 +1,6 @@
 ﻿using BossaWebsite;
 using GnuCash.CommodityPriceImportGenerator;
+using GnuCash.DataModel.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace GnucashPlDataImportGeneratorApp.BossaDataSources
             _client = client;
         }
 
-        public async Task<Dictionary<string, List<CommodityPriceData>>> GetPricesData()
+        public async Task<Dictionary<string, List<CommodityPriceData>>> GetPricesData(IEnumerable<LastPriceDateDto> lastPricesData, string baseCurrency)
         {
             var data = await _client.GetHistoricInvestmentFundsData();
 

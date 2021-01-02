@@ -12,6 +12,8 @@ using System.IO;
 using System.Text;
 using GnuCash.TransactionImportGenerator;
 using GnuCash.DataModel;
+using StooqWebsite;
+using GnucashPlDataImportGeneratorApp.StooqDataSources;
 
 namespace GnucashPlDataImportGeneratorApp
 {
@@ -28,11 +30,14 @@ namespace GnucashPlDataImportGeneratorApp
 
             services.AddGnuCashDataModel(Configuration);
             services.AddBossaWebsiteClient(Configuration);
+            services.AddStooqWebsiteClient(Configuration);
             services.AddCommodityPriceImportGenerator(Configuration);
             services.AddTransactionImportGenerator(Configuration);
 
             services.AddTransient<CurrenciesBossaDataSource, CurrenciesBossaDataSource>();
             services.AddTransient<InvestmentFundsBossaDataSource, InvestmentFundsBossaDataSource>();
+            services.AddTransient<CurrenciesStooqDataSource, CurrenciesStooqDataSource>();
+            services.AddTransient<InvestmentFundsStooqDataSource, InvestmentFundsStooqDataSource>();
 
 
             return services.BuildServiceProvider();

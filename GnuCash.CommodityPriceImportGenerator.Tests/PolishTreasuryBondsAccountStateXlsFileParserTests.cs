@@ -17,6 +17,7 @@ namespace GnuCash.CommodityPriceImportGenerator.Tests
     {
         private bool disposedValue;
         private readonly string validExcelFilePath;
+        private readonly string validIkeExcelFilePath;
 
 
         [AssemblyInitialize]
@@ -67,15 +68,44 @@ namespace GnuCash.CommodityPriceImportGenerator.Tests
             Assert.AreEqual(new DateTime(2019, 3, 5), result[2].BuyoutDate);
         }
 
+        [TestMethod]
+        public async Task Should_CorrectlyParseIkeXlsFile_When_FileIsValid()
+        {
+            var parser = new PolishTreasuryBondsAccountStateXlsFileParser();
+            var result = await parser.ParseFile(validIkeExcelFilePath);
+
+            Assert.AreEqual(4, result.Count);
+            Assert.AreEqual("EDO1230", result[0].EmissionCode);
+            Assert.AreEqual(1, result[0].AvailableBonds);
+            Assert.AreEqual(0, result[0].BlockedBonds);
+            Assert.AreEqual(100m, result[0].NominalValue);
+            Assert.AreEqual(100.51m, result[0].CurrentValue);
+            Assert.AreEqual(new DateTime(2030, 12, 16), result[0].BuyoutDate);
+            Assert.AreEqual("EDO0131", result[1].EmissionCode);
+            Assert.AreEqual(3, result[1].AvailableBonds);
+            Assert.AreEqual(0, result[1].BlockedBonds);
+            Assert.AreEqual(300m, result[1].NominalValue);
+            Assert.AreEqual(301.11m, result[1].CurrentValue);
+            Assert.AreEqual(new DateTime(2031, 1, 16), result[1].BuyoutDate);
+        }
+
         public PolishTreasuryBondsAccountStateXlsFileParserTests()
         {
             validExcelFilePath = GetValidExcelFilePath();
+            validIkeExcelFilePath = GetValidIkeExcelFilePath();
         }
 
         private string GetValidExcelFilePath()
         {
             string path = Path.GetTempFileName();
             WriteResourceToFile(path, "GnuCash.CommodityPriceImportGenerator.Tests.TestData.StanRachunkuRejestrowego_2020-09-30.xls");
+            return path;
+        }
+
+        private string GetValidIkeExcelFilePath()
+        {
+            string path = Path.GetTempFileName();
+            WriteResourceToFile(path, "GnuCash.CommodityPriceImportGenerator.Tests.TestData.StanRachunkuIKE_2021-04-05.xls");
             return path;
         }
 
@@ -95,6 +125,7 @@ namespace GnuCash.CommodityPriceImportGenerator.Tests
             if (!disposedValue)
             {
                 File.Delete(validExcelFilePath);
+                File.Delete(validIkeExcelFilePath);
                 disposedValue = true;
             }
         }

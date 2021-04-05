@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestData\StanRachunkuIKE_2021-04-05.xls" />
     <None Remove="TestData\StanRachunkuRejestrowego_2020-09-30.xls" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\StanRachunkuIKE_2021-04-05.xls" />
     <EmbeddedResource Include="TestData\StanRachunkuRejestrowego_2020-09-30.xls" />
   </ItemGroup>
 

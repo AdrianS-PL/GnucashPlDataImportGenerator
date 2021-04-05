@@ -32,23 +32,47 @@ namespace GnuCash.CommodityPriceImportGenerator.PolishTreasuryBonds
                     reader.Read();
                     while (reader.Read())
                     {
-                        var record = new PolishTreasuryBondsAccountStateFileRecord()
+                        if(IsIkeRow(reader))
                         {
-                            EmissionCode = reader.GetString(0),
-                            AvailableBonds = (int)Math.Round(reader.GetDouble(1)),
-                            BlockedBonds = (int)Math.Round(reader.GetDouble(2)),
-                            NominalValue = new decimal(reader.GetDouble(3)),
-                            CurrentValue = new decimal(reader.GetDouble(4)),
-                            BuyoutDate = DateTime.Parse(reader.GetString(5), CultureInfo.InvariantCulture)
-                        };
+                            var record = new PolishTreasuryBondsAccountStateFileRecord()
+                            {
+                                EmissionCode = reader.GetString(0),
+                                AvailableBonds = (int)Math.Round(reader.GetDouble(1)),
+                                BlockedBonds = (int)Math.Round(reader.GetDouble(2)),
+                                NominalValue = decimal.Parse(reader.GetString(3), CultureInfo.InvariantCulture),
+                                CurrentValue = decimal.Parse(reader.GetString(4), CultureInfo.InvariantCulture),
+                                BuyoutDate = DateTime.Parse(reader.GetString(5), CultureInfo.InvariantCulture)
+                            };
 
-                        result.Add(record);
+                            result.Add(record);
+                        }
+                        else
+                        {
+                            var record = new PolishTreasuryBondsAccountStateFileRecord()
+                            {
+                                EmissionCode = reader.GetString(0),
+                                AvailableBonds = (int)Math.Round(reader.GetDouble(1)),
+                                BlockedBonds = (int)Math.Round(reader.GetDouble(2)),
+                                NominalValue = new decimal(reader.GetDouble(3)),
+                                CurrentValue = new decimal(reader.GetDouble(4)),
+                                BuyoutDate = DateTime.Parse(reader.GetString(5), CultureInfo.InvariantCulture)
+                            };
+
+                            result.Add(record);
+                        }                        
                     }
                 } while (reader.NextResult());
             }
             
             await Task.CompletedTask;
             return result;
+        }
+
+
+        private bool IsIkeRow(IExcelDataReader reader)
+        {
+            var nominalValue = reader.GetValue(3);
+            return nominalValue is string;
         }
     }
 }

@@ -82,7 +82,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 20);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Wersja 1.3";
+            this.label4.Text = "Wersja 1.4";
             // 
             // label5
             // 

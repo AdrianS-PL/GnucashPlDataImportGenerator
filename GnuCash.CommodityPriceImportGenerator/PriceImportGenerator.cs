@@ -35,7 +35,8 @@ namespace GnuCash.CommodityPriceImportGenerator
 
 			foreach(var lastPriceDatesInNamespace in lastPriceDatesByNamespace)
             {
-				string dataSourceTypeName = _settings.Bindings.SingleOrDefault(q => q.Namespace == lastPriceDatesInNamespace.Key)?.DataSourceTypeName;
+				var namespaceBinding = _settings.Bindings.SingleOrDefault(q => q.Namespace == lastPriceDatesInNamespace.Key);
+				string dataSourceTypeName = namespaceBinding?.DataSourceTypeName;
 				
 				if (dataSourceTypeName == null)
 					continue;
@@ -51,6 +52,8 @@ namespace GnuCash.CommodityPriceImportGenerator
 
 				foreach(var lastPriceDate in lastPriceDatesInNamespace.Value)
                 {
+					string currencyOverride = namespaceBinding.CurrencyOverrides.FirstOrDefault(q => q.Mnemonic == lastPriceDate.Mnemonic)?.Currency;
+
 					importRows.AddRange(priceDataForNamespace[lastPriceDate.Mnemonic]
 						.Where(q => q.Date > lastPriceDate.Date)
 						.Select(r => new CommodityPriceImportFileRow() { 
@@ -58,7 +61,7 @@ namespace GnuCash.CommodityPriceImportGenerator
 							Mnemonic = r.Mnemonic, 
 							Namespace = lastPriceDatesInNamespace.Key, 
 							Price = r.Price,
-							BaseCurrency = _settings.BaseCurrency
+							BaseCurrency = currencyOverride ?? _settings.BaseCurrency
 						}));
 				}
 

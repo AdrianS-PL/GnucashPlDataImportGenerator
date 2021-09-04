@@ -64,9 +64,10 @@ namespace GnuCash.CommodityPriceImportGenerator
 							BaseCurrency = currencyOverride ?? _settings.BaseCurrency
 						}));
 				}
-
-				
 			}
+
+			var baseCurrencyPrices = BaseCurrencyPriceCalculatorForImportRows.CalculateBaseCurrencyPricesRows(importRows, _settings.BaseCurrency).ToList();
+			importRows.AddRange(baseCurrencyPrices);
 
 			using (var writer = new StreamWriter(_settings.GeneratedFilename))
 			using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))

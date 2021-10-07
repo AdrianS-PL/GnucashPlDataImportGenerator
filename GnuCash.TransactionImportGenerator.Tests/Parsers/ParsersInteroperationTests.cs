@@ -2,6 +2,7 @@
 using GnuCash.TransactionImportGenerator.Parsers.IngCsvOperationsFile;
 using GnuCash.TransactionImportGenerator.Parsers.PkoBpXmlCardOperationsFile;
 using GnuCash.TransactionImportGenerator.Parsers.PkoBpXmlOperationsFile;
+using GnuCash.TransactionImportGenerator.Parsers.PocztowyMt940OperationsFile;
 using GnuCash.TransactionImportGenerator.Parsers.PocztowyXmlOperationsFile;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,7 +26,8 @@ namespace GnuCash.TransactionImportGenerator.Tests.Parsers
                 { typeof(PkoBpXmlOperationsFileParser), pkoBpAccountOperationsXmlFile },
                 { typeof(PkoBpXmlCardOperationsFileParser), pkoBpCardOperationsXmlFile },
                 { typeof(IngCsvOperationsFileParser), ingAccountOperationsCsvFile },
-                { typeof(PocztowyXmlOperationsFileParser), pocztowyAccountOperationsXmlFile }
+                { typeof(PocztowyXmlOperationsFileParser), pocztowyAccountOperationsXmlFile },
+                { typeof(PocztowyMt940OperationsFileParser), pocztowyAccountOperationsMt940File }
             };
 
             var parsers = GetParsersProvider().GetServices<IOperationsFileParser>();
@@ -159,6 +161,44 @@ namespace GnuCash.TransactionImportGenerator.Tests.Parsers
 
 
 ""Dokument ma charakter informacyjny, nie stanowi dowodu księgowego"";
+";
+
+        private const string pocztowyAccountOperationsMt940File =
+            @":20:MT940
+:25:13201234/PL61175049066532561735311116
+:60F:C210901PLN1234,18
+:61:2108310902D469,99S0340000001090000123//123123
+:86:034~
+20Zakup kartą 1234 xxxx xxxx ~211234z dnia 2021.08.31;LEGO ~
+22System A/S Billund~23~
+24~25~
+27BARTOSZ ORŁOWSKI ~28~
+3018705216~31PL25187052162169878869775531~
+32BARTOSZ ORŁOWSKI~33 ~
+38PL25187052162169878869775531
+:61:2109220922D208,36S0340000180203119123//1234123
+:86:034~
+20/TXT///GAZ FV VFP/000123123~21/21~
+22~23~
+24~25~
+27PGNIG OBRÓT DETALICZNY SPÓŁKA Z OGR~28 ANICZONĄ ODPOWIEDZIALNOŚCIĄ
+WARSZA~
+3010201026~31PL59102010260000180203119773~
+32PGNIG OBRÓT DETALICZNY SPÓŁ~33KA Z OGR ANICZONĄ ODPOWIEDZ~
+38PL59102010260000180203119773
+:61:2109170917C800,00S0341000009716123123//1234123
+:86:034~
+20na połowe wrzesnia~21~
+22~23~
+24~25~
+27BARTOSZ ORŁOWSKI TRAUGUTTA 8B/9
+92-67~286 POZNAŃ~
+3010501924~31PL48212062184608634237069115~
+32BARTOSZ ORŁOWSKI TRAUGUTTA 8B~33/9
+92-676 POZNAŃ~
+38PL61175049066532561735311116
+:62F:C210930PLN2550,65
+86:NAME ACCOUNT OWNER: BARTOSZ ORŁOWSKI
 ";
     }
 }

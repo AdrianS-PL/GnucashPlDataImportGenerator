@@ -54,7 +54,7 @@ namespace GnucashPlDataImportGeneratorApp.Forms
             {
                 CheckFileExists = true,
                 CheckPathExists = true,
-                Filter = "XML and CSV files (*.xml, *.csv)|*.xml;*.csv|All files (*.*)|*.*;",
+                Filter = "XML and CSV files (*.xml, *.csv, *.mt940)|*.xml;*.csv;*.mt940|All files (*.*)|*.*;",
                 Multiselect = true,
                 Title = "Importuj pliki"
             };
@@ -109,6 +109,8 @@ namespace GnucashPlDataImportGeneratorApp.Forms
             }
 
             var writer = _services.GetService<TransactionImportFileWriter>();
+
+            fileRows = fileRows.OrderBy(q => q.Date).ToList();
 
             await writer.GenerateReport(fileRows);
 

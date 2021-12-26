@@ -53,8 +53,8 @@ W polu ConnectionStrings.GnuCashContext należy podać connection string do bazy
 
 Dla każdego konta bankowego dla którego będą do programu GnuCash importowane transakcje należy zdefiniować w programie GnuCash pole `Kod konta`.
 Powinno ono odpowiadać numerowi konta w dokładnie takim formacie jak w pliku generowanym przez system bankowości internetowej.
-Na przykład: W pliku XML wygenerowanym przez system bankowości internetowej banku PKO BP znajduje się linia `<account>21102010550000910201935659</account>`. 
-Wartość pola `Kod konta` dla konta w programie GnuCash powinna być równa `21102010550000910201935659`
+Na przykład: W pliku XML wygenerowanym przez system bankowości internetowej banku PKO BP znajduje się linia `<account>05147011716049911476692696</account>`. 
+Wartość pola `Kod konta` dla konta w programie GnuCash powinna być równa `05147011716049911476692696`
 
 Pole `Rodzaj` dla zdefiniowanych w programie GnuCash funduszy inwestycyjnych powinno zawierać tylko ciąg `Fundusze inwestycyjne`, a pole `Symbol/skrót` powinno zawierać symbol 
 zdefiniowany dla funduszu inwestycyjnego przez serwis [info.bossa.pl](https://info.bossa.pl)

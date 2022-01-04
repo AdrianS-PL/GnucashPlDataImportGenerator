@@ -44,6 +44,19 @@ WARSZA~
 32BARTOSZ ORŁOWSKI TRAUGUTTA 8B~33/9
 92-676 POZNAŃ~
 38PL61175049066532561735311116
+:61:2112141215D62,25S034//123123
+:86:034~
+20Płatność BLIK w internecie.~21 Transakcja nr 63313123123~
+22~23~
+24~25~
+27CashBill Sobieskiego 2
+Katowice
+bil~28ety.mazowieckie.com.pl~
+30~31~
+32CashBill Sobieskiego 2
+Kato~33wice
+bilety.mazowieckie.com~
+38
 :62F:C210930PLN2550,65
 86:NAME ACCOUNT OWNER: BARTOSZ ORŁOWSKI
 ";
@@ -65,7 +78,7 @@ WARSZA~
 
             var result = parser.MapToOperationsFile(ValidFileContent);
 
-            Assert.IsTrue(result.Count == 3);
+            Assert.IsTrue(result.Count == 4);
 
             Assert.IsTrue(result.All(q => q.AccountCode == "61175049066532561735311116"));
             Assert.IsTrue(result.All(q => q.Currency == "PLN"));
@@ -81,6 +94,10 @@ WARSZA~
             var operation3 = result.Single(q => q.Date == new DateTime(2021, 9, 17) && q.Amount == 800.00M);
             string description3 = "Rachunek przeciwstawny: 48212062184608634237069115\r\nDane kontrahenta: BARTOSZ ORŁOWSKI TRAUGUTTA 8B/992-676 POZNAŃ\r\nTytuł: na połowe wrzesnia\r\n";
             Assert.AreEqual(description3, operation3.Description);
+
+            var operation4 = result.Single(q => q.Date == new DateTime(2021, 12, 14) && q.Amount == -62.25M);
+            string description4 = "Dane kontrahenta: CashBill Sobieskiego 2Katowicebilety.mazowieckie.com.pl\r\nTytuł: Płatność BLIK w internecie. Transakcja nr 63313123123\r\n";
+            Assert.AreEqual(description4, operation4.Description);
 
         }
     }

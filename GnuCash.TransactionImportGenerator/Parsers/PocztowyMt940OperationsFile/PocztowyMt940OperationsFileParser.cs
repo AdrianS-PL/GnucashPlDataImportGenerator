@@ -115,9 +115,9 @@ namespace GnuCash.TransactionImportGenerator.Parsers.PocztowyMt940OperationsFile
             string transactionAddressData = "";
             string beneficiaryAccount = "";
 
-            foreach(string subfield in subfieldsStringsWithoutTransactionCode)
+            foreach (string subfield in subfieldsStringsWithoutTransactionCode)
             {
-                if(TransactionTitleCodes.Any(q => subfield.StartsWith(q)))
+                if (TransactionTitleCodes.Any(q => subfield.StartsWith(q)))
                 {
                     transactionTitle += subfield.Substring(2);
                 }
@@ -127,15 +127,19 @@ namespace GnuCash.TransactionImportGenerator.Parsers.PocztowyMt940OperationsFile
                 }
                 else if (subfield.StartsWith(BeneficiaryAccountCode))
                 {
-                    //usunięcie PL z numeru konta
-                    beneficiaryAccount = subfield.Substring(4);
+                    if (subfield.Length > BeneficiaryAccountCode.Length)
+                        //usunięcie PL z numeru konta
+                        beneficiaryAccount = subfield.Substring(4);
                 }
             }
 
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("Rachunek przeciwstawny: ");
-            sb.AppendLine(beneficiaryAccount);
+            if (beneficiaryAccount.Length > 0)
+            { 
+                sb.Append("Rachunek przeciwstawny: ");
+                sb.AppendLine(beneficiaryAccount);
+            }
 
             sb.Append("Dane kontrahenta: ");
             sb.AppendLine(transactionAddressData);

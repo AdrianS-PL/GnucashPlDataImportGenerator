@@ -20,6 +20,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GnucashPlDataImportGeneratorApp.Forms.Common;
+using GnuCash.DataModel.Dtos;
 
 namespace GnucashPlDataImportGeneratorApp.Forms
 {
@@ -75,7 +76,7 @@ namespace GnucashPlDataImportGeneratorApp.Forms
 
             Cursor.Current = defaultCursor;
 
-            FilesImportResultDialogBox.ShowDialog(filesParsingResults.ParsingResults);
+            FilesImportResultDialogBox.ShowDialog(filesParsingResults.ParsingResults.Select(q => q as FileImportResultBase).ToList());
 
             var pairOperationsDialogBox = new PairOperationsDialogBox();
             pairOperationsDialogBox.InitializeData(filesParsingResults.PairableOperations.OrderBy(q => q.Date).ToList());
@@ -131,9 +132,9 @@ namespace GnucashPlDataImportGeneratorApp.Forms
             {
                 CheckFileExists = true,
                 CheckPathExists = true,
-                Filter = "XLS file (*.xls)|*.xls;",
-                Multiselect = false,
-                Title = "Importuj plik"
+                Filter = "XLS files (*.xls)|*.xls;",
+                Multiselect = true,
+                Title = "Importuj pliki"
             };
 
             DialogResult result = dialog.ShowDialog();
@@ -144,13 +145,22 @@ namespace GnucashPlDataImportGeneratorApp.Forms
                 return;
             }
 
-            var bondsPriceImportGenerator = _services.GetService<IPolishTreasuryBondsPriceImportGenerator>();
-
             var defaultCursor = Cursor.Current;
             Cursor.Current = Cursors.WaitCursor;
 
+            var filesParser = _services.GetService<PolishTreasuryBondsAccountStateFilesParser>();
+            var filesParsingResults = await filesParser.ParseOperationsFiles(dialog.FileNames);
 
-            await bondsPriceImportGenerator.GenerateImport(dialog.FileName);
+            Cursor.Current = defaultCursor;
+
+            FilesImportResultDialogBox.ShowDialog(filesParsingResults.ParsingResults.Select(q => q as FileImportResultBase).ToList());
+
+            var bondsPriceImportFileWriter = _services.GetService<PolishTreasuryBondsPricesImportFileWriter>();
+
+            defaultCursor = Cursor.Current;
+            Cursor.Current = Cursors.WaitCursor;
+
+            await bondsPriceImportFileWriter.WriteImportFile(filesParsingResults.LoadedFileRecords, DateTime.Today);
 
             Cursor.Current = defaultCursor;
             button3.Enabled = true;

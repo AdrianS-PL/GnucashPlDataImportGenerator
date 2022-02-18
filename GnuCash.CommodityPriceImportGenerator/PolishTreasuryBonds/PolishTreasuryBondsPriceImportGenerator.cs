@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 
 namespace GnuCash.CommodityPriceImportGenerator.PolishTreasuryBonds
 {
+    [Obsolete]
     internal class PolishTreasuryBondsPriceImportGenerator : IPolishTreasuryBondsPriceImportGenerator
     {
         private readonly IServiceProvider _serviceProvider;

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GnuCash.CommodityPriceImportGenerator.PolishTreasuryBonds
 {
-    internal class PolishTreasuryBondsAccountStateFileRecord
+    public class PolishTreasuryBondsAccountStateFileRecord
     {
         public string EmissionCode { get; set; }
         public int AvailableBonds { get; set; }

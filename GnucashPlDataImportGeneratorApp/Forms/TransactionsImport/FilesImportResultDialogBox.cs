@@ -1,4 +1,5 @@
 ﻿using BossaTestDataImporter.Imports.ViewModels;
+using GnuCash.DataModel.Dtos;
 using GnuCash.TransactionImportGenerator.Model;
 using System;
 using System.Collections.Generic;
@@ -36,8 +37,8 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport
             }
         }
 
-        public static void ShowDialog(List<FileImportResult> importResults)
-        {            
+        public static void ShowDialog(List<FileImportResultBase> importResults)
+        {
             var dialog = new FilesImportResultDialogBox();
             dialog.ImportResults = importResults.Select(q => new FileImportResultGridRowViewModel
             {

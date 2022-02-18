@@ -24,6 +24,10 @@ namespace GnuCash.CommodityPriceImportGenerator
             services.AddTransient<IPriceImportGenerator, PriceImportGenerator>();
             services.AddPolishTreasuryBondsAccountStateFileParsers();
             services.AddTransient<IPolishTreasuryBondsPriceImportGenerator, PolishTreasuryBondsPriceImportGenerator>();
+            services.AddTransient<PolishTreasuryBondsAccountStateFilesParser, PolishTreasuryBondsAccountStateFilesParser>();
+            services.AddTransient<PolishTreasuryBondsPricesImportFileWriter, PolishTreasuryBondsPricesImportFileWriter>();
+            
+
             //services.AddHttpClient<BossaWebsiteClient>();
 
 

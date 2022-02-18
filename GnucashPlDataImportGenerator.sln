@@ -21,9 +21,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GnuCash.TransactionImportGe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GnuCash.CommodityPriceImportGenerator.Tests", "GnuCash.CommodityPriceImportGenerator.Tests\GnuCash.CommodityPriceImportGenerator.Tests.csproj", "{26A3B5D1-C00B-4BF6-BFB2-2CC922048177}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StooqWebsite", "StooqWebsite\StooqWebsite.csproj", "{B3546173-51A9-483C-9AE1-64C1A8CC2F5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StooqWebsite", "StooqWebsite\StooqWebsite.csproj", "{B3546173-51A9-483C-9AE1-64C1A8CC2F5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StooqWebsite.Tests", "StooqWebsite.Tests\StooqWebsite.Tests.csproj", "{A26B4D67-0866-4650-B52D-C7B7B8D8DE5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StooqWebsite.Tests", "StooqWebsite.Tests\StooqWebsite.Tests.csproj", "{A26B4D67-0866-4650-B52D-C7B7B8D8DE5E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{795BC2DD-730E-4814-A4FE-DF61C507EBB2}"
+	ProjectSection(SolutionItems) = preProject
+		Jenkinsfile = Jenkinsfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

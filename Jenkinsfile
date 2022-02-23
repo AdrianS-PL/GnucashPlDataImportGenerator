@@ -1,6 +1,6 @@
 //Multibranch pipeline
 pipeline {
-	agent any
+	agent { label 'windows' }
 	environment {
         ConnectionStrings = ''	
     }

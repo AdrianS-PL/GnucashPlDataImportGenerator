@@ -20,7 +20,7 @@ pipeline {
 				}
 				stage('Test PR') {
 					steps {
-						bat 'dotnet test --verbosity minimal -l:trx;LogFileName=TestOutput.trx --filter /p:CollectCoverage=true /p:CoverletOutput=CodeCoverageResults/ /p:CoverletOutputFormat=cobertura || true'
+						bat 'dotnet test --verbosity minimal -l:trx;LogFileName=TestOutput.trx /p:CollectCoverage=true /p:CoverletOutput=CodeCoverageResults/ /p:CoverletOutputFormat=cobertura || true'
 						mstest testResultsFile:"**/*.trx", keepLongStdio: true
 						step([$class: 'CoberturaPublisher', autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/coverage.cobertura.xml', failUnhealthy: false, failUnstable: false, maxNumberOfBuilds: 0, onlyStable: false, sourceEncoding: 'UTF_8', zoomCoverageChart: false])				
 					}
@@ -39,7 +39,7 @@ pipeline {
 				}
 				stage('Test solution') {
 					steps {
-						bat 'dotnet test --verbosity minimal -l:trx;LogFileName=TestOutput.trx --filter /p:CollectCoverage=true /p:CoverletOutput=CodeCoverageResults/ /p:CoverletOutputFormat=cobertura || true'
+						bat 'dotnet test --verbosity minimal -l:trx;LogFileName=TestOutput.trx /p:CollectCoverage=true /p:CoverletOutput=CodeCoverageResults/ /p:CoverletOutputFormat=cobertura || true'
 						mstest testResultsFile:"**/*.trx", keepLongStdio: true
 						step([$class: 'CoberturaPublisher', autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/coverage.cobertura.xml', failUnhealthy: false, failUnstable: false, maxNumberOfBuilds: 0, onlyStable: false, sourceEncoding: 'UTF_8', zoomCoverageChart: false])				
 					}

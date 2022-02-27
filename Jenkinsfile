@@ -46,7 +46,7 @@ pipeline {
 				}
 				stage('Build artifacts') {
 					steps {
-						bat 'dotnet publish GnucashPlDataImportGeneratorApp -c Release -o Artifacts'
+						bat 'dotnet publish GnucashPlDataImportGeneratorApp -c Release -o Artifacts --runtime win-x64'
 						archiveArtifacts artifacts: '**/Artifacts/**/*', followSymlinks: false, onlyIfSuccessful: true
 					}
 				}

@@ -28,5 +28,8 @@ namespace GnuCash.TransactionImportGenerator.Model
         
         [Index(6)]
         public string TransferMemo { get; set; }
+
+        [Ignore]
+        public bool AssignedTransferAccountChecked { get; set; }
     }
 }

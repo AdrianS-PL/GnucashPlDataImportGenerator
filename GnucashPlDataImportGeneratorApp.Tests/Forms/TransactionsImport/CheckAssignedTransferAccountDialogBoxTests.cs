@@ -5,7 +5,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FakeItEasy;
 using System.Text;
+using GnucashPlDataImportGeneratorApp.Forms.Common;
+using System.Windows.Forms;
 
 namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
 {
@@ -106,6 +109,7 @@ namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
             Assert.AreEqual(inputData[0].Description, view.TbxDescriptionText);
             Assert.AreEqual(inputData[0].Date.ToString(), view.TbxTransactionDateText);
             Assert.AreEqual(inputData[0].TransferMemo, view.TbxTransferMemoText);
+            Assert.AreEqual(inputData[0].AssignedTransferAccountChecked, view.CbxTransactionCheckedValue);
 
             form.Presenter.OnNextButtonClick();
             Assert.IsTrue(view.BtnPrevEnabled);
@@ -116,6 +120,7 @@ namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
             Assert.AreEqual(inputData[1].Description, view.TbxDescriptionText);
             Assert.AreEqual(inputData[1].Date.ToString(), view.TbxTransactionDateText);
             Assert.AreEqual(inputData[1].TransferMemo, view.TbxTransferMemoText);
+            Assert.AreEqual(inputData[1].AssignedTransferAccountChecked, view.CbxTransactionCheckedValue);
 
             form.Presenter.OnNextButtonClick();
             Assert.IsTrue(view.BtnPrevEnabled);
@@ -126,6 +131,7 @@ namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
             Assert.AreEqual(inputData[2].Description, view.TbxDescriptionText);
             Assert.AreEqual(inputData[2].Date.ToString(), view.TbxTransactionDateText);
             Assert.AreEqual(inputData[2].TransferMemo, view.TbxTransferMemoText);
+            Assert.AreEqual(inputData[2].AssignedTransferAccountChecked, view.CbxTransactionCheckedValue);
 
             form.Presenter.OnPrevButtonClick();
             Assert.IsTrue(view.BtnPrevEnabled);
@@ -136,6 +142,7 @@ namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
             Assert.AreEqual(inputData[1].Description, view.TbxDescriptionText);
             Assert.AreEqual(inputData[1].Date.ToString(), view.TbxTransactionDateText);
             Assert.AreEqual(inputData[1].TransferMemo, view.TbxTransferMemoText);
+            Assert.AreEqual(inputData[1].AssignedTransferAccountChecked, view.CbxTransactionCheckedValue);
 
             form.Presenter.OnPrevButtonClick();
             Assert.IsFalse(view.BtnPrevEnabled);
@@ -146,6 +153,7 @@ namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
             Assert.AreEqual(inputData[0].Description, view.TbxDescriptionText);
             Assert.AreEqual(inputData[0].Date.ToString(), view.TbxTransactionDateText);
             Assert.AreEqual(inputData[0].TransferMemo, view.TbxTransferMemoText);
+            Assert.AreEqual(inputData[0].AssignedTransferAccountChecked, view.CbxTransactionCheckedValue);
         }
 
         [TestMethod]
@@ -206,6 +214,41 @@ namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
             Assert.AreEqual(inputData[0].TransferMemo, view.TbxTransferMemoText);
         }
 
+        [TestMethod]
+        public void Should_ShowErrorMessageBox_When_OkIsClickedAndNotAllTransactionsAccepted()
+        {
+            var messageBoxServiceMock = A.Fake<IMessageBoxService>();
+            var form = new CheckAssignedTransferAccountDialogBox();
+            form.Presenter.MessageBoxServiceInstance = messageBoxServiceMock;
+            var inputData = GetStandardTestData().Take(1).ToList();
+            var transferAccounts = GetStandardTransferAccountList();
+            form.InitializeData(inputData, transferAccounts);
+            var view = form as ICheckAssignedTransferAccountDialogBoxView;
+
+            form.Presenter.OnOkButtonClick();
+
+            A.CallTo(() => messageBoxServiceMock.ShowErrorMessage(A<string>._)).MustHaveHappenedOnceExactly();
+            Assert.AreEqual(DialogResult.None, view.DialogResult);
+        }
+
+        [TestMethod]
+        public void Should_ReturnDialogResultOk_When_OkIsClickedAndAllTransactionsAccepted()
+        {
+            var messageBoxServiceMock = A.Fake<IMessageBoxService>();
+            var form = new CheckAssignedTransferAccountDialogBox();
+            form.Presenter.MessageBoxServiceInstance = messageBoxServiceMock;
+            var inputData = GetStandardTestData().Take(1).ToList();
+            var transferAccounts = GetStandardTransferAccountList();
+            form.InitializeData(inputData, transferAccounts);
+            var view = form as ICheckAssignedTransferAccountDialogBoxView;
+
+            view.CbxTransactionCheckedValue = true;
+            form.Presenter.OnOkButtonClick();
+
+            A.CallTo(() => messageBoxServiceMock.ShowErrorMessage(A<string>._)).MustNotHaveHappened();
+            Assert.AreEqual(DialogResult.OK, view.DialogResult);
+        }
+
         private List<TransactionImportFileRow> GetStandardTestData()
         {
             return new List<TransactionImportFileRow>
@@ -218,7 +261,8 @@ namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
                     Description = "test description 1",
                     Memo = "test memo 1",
                     TransferAccount = "Wydatki:Pies",
-                    TransferMemo = " test transfer memo 1"
+                    TransferMemo = " test transfer memo 1",
+                    AssignedTransferAccountChecked = false
                 },
                 new TransactionImportFileRow
                 {
@@ -228,7 +272,9 @@ namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
                     Description = "test description 2",
                     Memo = "test memo 2",
                     TransferAccount = "Wydatki:Kot",
-                    TransferMemo = " test transfer memo 2"
+                    TransferMemo = " test transfer memo 2",
+                    AssignedTransferAccountChecked = true
+                    
                 },
                 new TransactionImportFileRow
                 {
@@ -238,7 +284,8 @@ namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
                     Description = "test description 3",
                     Memo = "test memo 3",
                     TransferAccount = "Wydatki:Chomik",
-                    TransferMemo = " test transfer memo 3"
+                    TransferMemo = " test transfer memo 3",
+                    AssignedTransferAccountChecked = false
                 }
             };
         }

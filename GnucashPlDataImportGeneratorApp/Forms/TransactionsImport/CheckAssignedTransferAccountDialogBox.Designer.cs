@@ -53,6 +53,7 @@
             this.btnNext = new System.Windows.Forms.Button();
             this.btnPrev = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.cbxTransactionChecked = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -78,13 +79,13 @@
             "fhgfhgfhg"});
             this.lbTransferAccount.Location = new System.Drawing.Point(3, 28);
             this.lbTransferAccount.Name = "lbTransferAccount";
-            this.lbTransferAccount.Size = new System.Drawing.Size(390, 384);
+            this.lbTransferAccount.Size = new System.Drawing.Size(500, 384);
             this.lbTransferAccount.TabIndex = 0;
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(299, 421);
+            this.btnCancel.Location = new System.Drawing.Point(409, 421);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(94, 29);
             this.btnCancel.TabIndex = 1;
@@ -95,7 +96,7 @@
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(199, 421);
+            this.btnOk.Location = new System.Drawing.Point(309, 421);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(94, 29);
             this.btnOk.TabIndex = 2;
@@ -119,8 +120,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.lbTransferAccount);
             this.splitContainer1.Panel2.Controls.Add(this.btnCancel);
             this.splitContainer1.Panel2.Controls.Add(this.btnOk);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 453);
-            this.splitContainer1.SplitterDistance = 400;
+            this.splitContainer1.Size = new System.Drawing.Size(1019, 453);
+            this.splitContainer1.SplitterDistance = 509;
             this.splitContainer1.TabIndex = 3;
             this.splitContainer1.Text = "splitContainer1";
             // 
@@ -140,7 +141,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(400, 453);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(509, 453);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel1
@@ -150,7 +151,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 274);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(394, 135);
+            this.panel1.Size = new System.Drawing.Size(503, 135);
             this.panel1.TabIndex = 0;
             // 
             // tbxTransferMemo
@@ -162,7 +163,7 @@
             this.tbxTransferMemo.Multiline = true;
             this.tbxTransferMemo.Name = "tbxTransferMemo";
             this.tbxTransferMemo.ReadOnly = true;
-            this.tbxTransferMemo.Size = new System.Drawing.Size(376, 112);
+            this.tbxTransferMemo.Size = new System.Drawing.Size(485, 112);
             this.tbxTransferMemo.TabIndex = 1;
             // 
             // label7
@@ -181,7 +182,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 133);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(394, 135);
+            this.panel2.Size = new System.Drawing.Size(503, 135);
             this.panel2.TabIndex = 1;
             // 
             // tbxDescription
@@ -193,7 +194,7 @@
             this.tbxDescription.Multiline = true;
             this.tbxDescription.Name = "tbxDescription";
             this.tbxDescription.ReadOnly = true;
-            this.tbxDescription.Size = new System.Drawing.Size(376, 112);
+            this.tbxDescription.Size = new System.Drawing.Size(485, 112);
             this.tbxDescription.TabIndex = 1;
             // 
             // label6
@@ -216,7 +217,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(394, 124);
+            this.panel3.Size = new System.Drawing.Size(503, 124);
             this.panel3.TabIndex = 2;
             // 
             // tbxAccount
@@ -226,13 +227,13 @@
             this.tbxAccount.Location = new System.Drawing.Point(9, 82);
             this.tbxAccount.Name = "tbxAccount";
             this.tbxAccount.ReadOnly = true;
-            this.tbxAccount.Size = new System.Drawing.Size(376, 27);
+            this.tbxAccount.Size = new System.Drawing.Size(485, 27);
             this.tbxAccount.TabIndex = 5;
             // 
             // tbxAmount
             // 
             this.tbxAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxAmount.Location = new System.Drawing.Point(235, 29);
+            this.tbxAmount.Location = new System.Drawing.Point(344, 29);
             this.tbxAmount.Name = "tbxAmount";
             this.tbxAmount.ReadOnly = true;
             this.tbxAmount.Size = new System.Drawing.Size(150, 27);
@@ -259,7 +260,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(235, 6);
+            this.label4.Location = new System.Drawing.Point(344, 6);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 20);
             this.label4.TabIndex = 1;
@@ -276,6 +277,7 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.cbxTransactionChecked);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Controls.Add(this.tbxIndex);
             this.panel4.Controls.Add(this.tbxCount);
@@ -284,14 +286,14 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 415);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(394, 35);
+            this.panel4.Size = new System.Drawing.Size(503, 35);
             this.panel4.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(312, 9);
+            this.label2.Location = new System.Drawing.Point(421, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(16, 20);
             this.label2.TabIndex = 4;
@@ -300,7 +302,7 @@
             // tbxIndex
             // 
             this.tbxIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxIndex.Location = new System.Drawing.Point(255, 5);
+            this.tbxIndex.Location = new System.Drawing.Point(364, 5);
             this.tbxIndex.Name = "tbxIndex";
             this.tbxIndex.ReadOnly = true;
             this.tbxIndex.Size = new System.Drawing.Size(51, 27);
@@ -309,7 +311,7 @@
             // tbxCount
             // 
             this.tbxCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxCount.Location = new System.Drawing.Point(334, 5);
+            this.tbxCount.Location = new System.Drawing.Point(443, 5);
             this.tbxCount.Name = "tbxCount";
             this.tbxCount.ReadOnly = true;
             this.tbxCount.Size = new System.Drawing.Size(51, 27);
@@ -344,11 +346,21 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Konto transferowe";
             // 
+            // cbxTransactionChecked
+            // 
+            this.cbxTransactionChecked.AutoSize = true;
+            this.cbxTransactionChecked.Location = new System.Drawing.Point(200, 8);
+            this.cbxTransactionChecked.Name = "cbxTransactionChecked";
+            this.cbxTransactionChecked.Size = new System.Drawing.Size(136, 24);
+            this.cbxTransactionChecked.TabIndex = 4;
+            this.cbxTransactionChecked.Text = "Zaakceptowana";
+            this.cbxTransactionChecked.UseVisualStyleBackColor = true;
+            // 
             // CheckAssignedTransferAccountDialogBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 453);
+            this.ClientSize = new System.Drawing.Size(1019, 453);
             this.Controls.Add(this.splitContainer1);
             this.MinimumSize = new System.Drawing.Size(818, 500);
             this.Name = "CheckAssignedTransferAccountDialogBox";
@@ -400,5 +412,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbxTransferMemo;
         private System.Windows.Forms.TextBox tbxDescription;
+        private System.Windows.Forms.CheckBox cbxTransactionChecked;
     }
 }

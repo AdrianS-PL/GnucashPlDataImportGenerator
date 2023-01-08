@@ -12,6 +12,20 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport.Presenters
     public class CheckAssignedTransferAccountDialogBoxPresenter
     {
         private readonly ICheckAssignedTransferAccountDialogBoxView _view;
+        private IMessageBoxService _messageBoxService;
+
+        public IMessageBoxService MessageBoxServiceInstance
+        {
+            get
+            {
+                _messageBoxService ??= new MessageBoxService();
+                return _messageBoxService;
+            }
+            set
+            {
+                _messageBoxService = value;
+            }
+        }
 
         public CheckAssignedTransferAccountDialogBoxPresenter(ICheckAssignedTransferAccountDialogBoxView view)
         {
@@ -25,6 +39,7 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport.Presenters
                 ?? throw new NullReferenceException($"{nameof(availableTransferAccounts)} cannot be null!");
 
             _view.SelectedIndexChanged -= OnLbTransferAccountSelectedIndexChange;
+            _view.TransactionAcceptedChanged -= OnCbxTransactionCheckedCheckedChange;
             _view.AvailableTransferAccounts = availableTransferAccounts;
             _view.TransactionData = data;
             _view.TbxCountText = _view.TransactionData.Count.ToString();
@@ -37,25 +52,33 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport.Presenters
                 ClearDisplay();
             }
             _view.SelectedIndexChanged += OnLbTransferAccountSelectedIndexChange;
+            _view.TransactionAcceptedChanged += OnCbxTransactionCheckedCheckedChange;
         }
 
         public void OnPrevButtonClick()
         {
             _view.SelectedIndexChanged -= OnLbTransferAccountSelectedIndexChange;
+            _view.TransactionAcceptedChanged -= OnCbxTransactionCheckedCheckedChange;
             UpdateDisplayedTransaction(_view.Index - 1);
             _view.SelectedIndexChanged += OnLbTransferAccountSelectedIndexChange;
+            _view.TransactionAcceptedChanged += OnCbxTransactionCheckedCheckedChange;
         }
 
         public void OnNextButtonClick()
         {
             _view.SelectedIndexChanged -= OnLbTransferAccountSelectedIndexChange;
+            _view.TransactionAcceptedChanged -= OnCbxTransactionCheckedCheckedChange;
             UpdateDisplayedTransaction(_view.Index + 1);
             _view.SelectedIndexChanged += OnLbTransferAccountSelectedIndexChange;
+            _view.TransactionAcceptedChanged += OnCbxTransactionCheckedCheckedChange;
         }
 
         public void OnOkButtonClick()
         {
-            _view.DialogResult = DialogResult.OK;
+            if (_view.TransactionData.All(q => q.AssignedTransferAccountChecked))
+                _view.DialogResult = DialogResult.OK;
+            else
+                _messageBoxService.ShowErrorMessage("Nie wszystkie transakcje zostały zaakceptowane");
         }
 
         public void OnCancelButtonClick()
@@ -67,6 +90,12 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport.Presenters
         {
             TransactionImportFileRow transaction = _view.TransactionData[_view.Index];
             transaction.TransferAccount = _view.LbTransferAccountSelectedItem;
+        }
+
+        public void OnCbxTransactionCheckedCheckedChange(object sender, EventArgs e)
+        {
+            TransactionImportFileRow transaction = _view.TransactionData[_view.Index];
+            transaction.AssignedTransferAccountChecked = _view.CbxTransactionCheckedValue;
         }
 
         private void ClearDisplay()
@@ -102,6 +131,8 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport.Presenters
                 _view.LbTransferAccountSelectedItem = transaction.TransferAccount;
             else
                 _view.LbTransferAccountSelectedItem = _view.AvailableTransferAccounts.First();
+
+            _view.CbxTransactionCheckedValue = transaction.AssignedTransferAccountChecked;
 
             UpdatePrevAndNextButtonEnabled();
         }

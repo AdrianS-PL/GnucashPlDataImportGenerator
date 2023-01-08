@@ -9,6 +9,7 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport.ViewInterface
     public interface ICheckAssignedTransferAccountDialogBoxView
     {
         event EventHandler SelectedIndexChanged;
+        event EventHandler TransactionAcceptedChanged;
 
         List<TransactionImportFileRow> TransactionData { get; set; }
         List<string> AvailableTransferAccounts { get; set; }
@@ -20,6 +21,7 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport.ViewInterface
         string TbxDescriptionText { get; set; }
         string TbxTransferMemoText { get; set; }
         int Index { get; set; }
+        bool CbxTransactionCheckedValue { get; set; }
         bool BtnNextEnabled { get; set; }
         bool BtnPrevEnabled { get; set; }
         string LbTransferAccountSelectedItem { get; set; }

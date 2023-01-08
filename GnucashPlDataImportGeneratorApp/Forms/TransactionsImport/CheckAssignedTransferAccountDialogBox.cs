@@ -21,6 +21,12 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport
 
         //public event EventHandler SelectedIndexChanged;
 
+        event EventHandler ICheckAssignedTransferAccountDialogBoxView.TransactionAcceptedChanged
+        {
+            add => cbxTransactionChecked.CheckedChanged += value;
+            remove => cbxTransactionChecked.CheckedChanged -= value;
+        }
+
         event EventHandler ICheckAssignedTransferAccountDialogBoxView.SelectedIndexChanged
         {
             add => lbTransferAccount.SelectedIndexChanged += value;
@@ -97,6 +103,12 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport
         {
             get { return tbxTransferMemo.Text; }
             set { tbxTransferMemo.Text = value; }
+        }
+
+        bool ICheckAssignedTransferAccountDialogBoxView.CbxTransactionCheckedValue
+        {
+            get { return cbxTransactionChecked.Checked; }
+            set { cbxTransactionChecked.Checked = value; }
         }
 
         bool ICheckAssignedTransferAccountDialogBoxView.BtnNextEnabled

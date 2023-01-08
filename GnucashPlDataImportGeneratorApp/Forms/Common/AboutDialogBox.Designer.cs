@@ -82,7 +82,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 20);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Wersja 1.8";
+            this.label4.Text = "Wersja 1.9";
             // 
             // label5
             // 
@@ -91,7 +91,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(398, 20);
             this.label5.TabIndex = 5;
-            this.label5.Text = "Copyright © 2020 autorzy GnucashPlDataImportGenerator ";
+            this.label5.Text = "Copyright © 2022 autorzy GnucashPlDataImportGenerator ";
             // 
             // AboutDialogBox
             // 

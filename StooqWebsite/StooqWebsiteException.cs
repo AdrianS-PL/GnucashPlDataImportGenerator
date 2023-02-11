@@ -1,23 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics.CodeAnalysis;
 
-namespace StooqWebsite
+namespace StooqWebsite;
+
+[ExcludeFromCodeCoverage]
+public class StooqWebsiteException : Exception
 {
-    public class StooqWebsiteException : Exception
+    public StooqWebsiteException()
     {
-        public StooqWebsiteException()
-        {
-        }
+    }
 
-        public StooqWebsiteException(string message)
-            : base(message)
-        {
-        }
+    public StooqWebsiteException(string message)
+        : base(message)
+    {
+    }
 
-        public StooqWebsiteException(string message, Exception inner)
-            : base(message, inner)
-        {
-        }
+    public StooqWebsiteException(string message, Exception inner)
+        : base(message, inner)
+    {
     }
 }

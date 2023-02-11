@@ -1,28 +1,21 @@
-﻿using BossaTestDataImporter.Imports;
-using GnuCash.CommodityPriceImportGenerator;
+﻿using GnuCash.CommodityPriceImportGenerator;
 using GnuCash.CommodityPriceImportGenerator.PolishTreasuryBonds;
-using GnuCash.TransactionImportGenerator;
-using GnuCash.TransactionImportGenerator.Model;
-using GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.MlNet;
 using GnuCash.DataModel.DatabaseModel;
+using GnuCash.DataModel.Dtos;
 using GnuCash.DataModel.Queries;
+using GnuCash.TransactionImportGenerator;
+using GnucashPlDataImportGeneratorApp.Forms.Common;
 using GnucashPlDataImportGeneratorApp.Forms.TransactionsImport;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using GnucashPlDataImportGeneratorApp.Forms.Common;
-using GnuCash.DataModel.Dtos;
 
 namespace GnucashPlDataImportGeneratorApp.Forms
 {
+    [ExcludeFromCodeCoverage]
     public partial class MainForm : Form
     {
         IServiceProvider _services;
@@ -34,7 +27,7 @@ namespace GnucashPlDataImportGeneratorApp.Forms
         }
 
         private async void button1_Click(object sender, EventArgs e)
-        {      
+        {
             button1.Enabled = false;
             var defaultCursor = Cursor.Current;
             Cursor.Current = Cursors.WaitCursor;
@@ -48,7 +41,7 @@ namespace GnucashPlDataImportGeneratorApp.Forms
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            button2.Enabled = false;            
+            button2.Enabled = false;
 
             var dialog = new OpenFileDialog
             {
@@ -97,7 +90,7 @@ namespace GnucashPlDataImportGeneratorApp.Forms
 
             var checkAssignedTransferAccountDialogBox = new CheckAssignedTransferAccountDialogBox();
 
-            var context = _services.GetService<GnuCashContext>();            
+            var context = _services.GetService<GnuCashContext>();
             checkAssignedTransferAccountDialogBox.InitializeData(fileRows, (await context.Set<Account>().GetAccountFullNamesAsync()).OrderBy(q => q.FullName).Select(q => q.FullName).ToList());
 
             result = checkAssignedTransferAccountDialogBox.ShowDialog();
@@ -107,8 +100,6 @@ namespace GnucashPlDataImportGeneratorApp.Forms
                 button2.Enabled = true;
                 return;
             }
-
-            var writer = _services.GetService<TransactionImportFileWriter>();
 
             fileRows = fileRows.OrderBy(q => q.Date).ToList();
 

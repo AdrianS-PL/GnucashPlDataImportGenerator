@@ -155,14 +155,14 @@ namespace GnuCash.TransactionImportGenerator.Tests
         }
 
 
-        private string GetWindows1250FilePath()
+        private static string GetWindows1250FilePath()
         {
             string path = Path.GetTempFileName();
             WriteResourceToFile(path, "GnuCash.TransactionImportGenerator.Tests.TestData.OperationFilesParserTests_1250.txt");
             return path;
         }
 
-        private string GetUtf8FilePath()
+        private static string GetUtf8FilePath()
         {
             string path = Path.GetTempFileName();
             WriteResourceToFile(path, "GnuCash.TransactionImportGenerator.Tests.TestData.OperationFilesParserTests_utf8.txt");
@@ -184,11 +184,6 @@ namespace GnuCash.TransactionImportGenerator.Tests
         {
             if (!disposedValue)
             {
-                //if (disposing)
-                //{
-                //    // dispose managed state (managed objects)
-                //}
-
                 File.Delete(windows1250FilePath);
                 File.Delete(utf8FilePath);
                 disposedValue = true;

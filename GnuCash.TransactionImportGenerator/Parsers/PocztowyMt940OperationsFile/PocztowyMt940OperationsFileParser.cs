@@ -114,11 +114,11 @@ namespace GnuCash.TransactionImportGenerator.Parsers.PocztowyMt940OperationsFile
             {
                 if (TransactionTitleCodes.Any(q => subfield.StartsWith(q)))
                 {
-                    transactionTitle.Append(subfield.Substring(2));
+                    transactionTitle.Append(subfield.AsSpan(2));
                 }
                 else if (TransactionAddressCodes.Any(q => subfield.StartsWith(q)))
                 {
-                    transactionAddressData.Append(subfield.Substring(2));
+                    transactionAddressData.Append(subfield.AsSpan(2));
                 }
                 else if (subfield.StartsWith(BeneficiaryAccountCode) && subfield.Length > BeneficiaryAccountCode.Length)
                 {

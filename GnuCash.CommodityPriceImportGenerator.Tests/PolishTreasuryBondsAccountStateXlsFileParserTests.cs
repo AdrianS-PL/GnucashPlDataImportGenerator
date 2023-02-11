@@ -95,14 +95,14 @@ namespace GnuCash.CommodityPriceImportGenerator.Tests
             validIkeExcelFilePath = GetValidIkeExcelFilePath();
         }
 
-        private string GetValidExcelFilePath()
+        private static string GetValidExcelFilePath()
         {
             string path = Path.GetTempFileName();
             WriteResourceToFile(path, "GnuCash.CommodityPriceImportGenerator.Tests.TestData.StanRachunkuRejestrowego_2020-09-30.xls");
             return path;
         }
 
-        private string GetValidIkeExcelFilePath()
+        private static string GetValidIkeExcelFilePath()
         {
             string path = Path.GetTempFileName();
             WriteResourceToFile(path, "GnuCash.CommodityPriceImportGenerator.Tests.TestData.StanRachunkuIKE_2021-04-05.xls");

@@ -24,7 +24,6 @@ namespace GnuCash.TransactionImportGenerator
     {
         public static IServiceCollection AddTransactionImportGenerator(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<TransactionImportFileWriter, TransactionImportFileWriter>();
             services.AddTransient<OperationFilesParser, OperationFilesParser>();
             services.AddTransient<TransactionImportFileDataGenerator, TransactionImportFileDataGenerator>();
             services.AddOperationsFileParsers();

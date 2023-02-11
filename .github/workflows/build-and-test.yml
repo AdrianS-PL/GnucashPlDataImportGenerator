@@ -33,22 +33,18 @@ jobs:
     - name: Install SonarCloud scanner
       run: |
         dotnet tool install --global dotnet-sonarscanner
-        export PATH="$PATH:/home/runner/.dotnet/tools"
     - name: Dotnet restore
-      working-directory: src
       run: dotnet restore
     - name: Build and analyze
-      working-directory: src
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
-        export PATH="$PATH:/home/runner/.dotnet/tools"
-        dotnet-sonarscanner begin \
-        /k:"AdrianS-PL_GnucashPlDataImportGenerator" \
-        /o:"adrian-sauer" \
-        /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
-        /d:sonar.host.url="https://sonarcloud.io" \
+        dotnet-sonarscanner begin `
+        /k:"AdrianS-PL_GnucashPlDataImportGenerator" `
+        /o:"adrian-sauer" `
+        /d:sonar.login="${{ secrets.SONAR_TOKEN }}" `
+        /d:sonar.host.url="https://sonarcloud.io" `
         /d:sonar.cs.opencover.reportsPaths="TestResults/**/coverage.opencover.xml"
         dotnet build --no-restore
         dotnet test --no-restore --settings coverlet.runsettings --results-directory:"./TestResults/" --logger "trx"
@@ -58,7 +54,7 @@ jobs:
       if: success() || failure()
       with:
         name: Unit tests report
-        path: src/TestResults/*.trx
+        path: TestResults/*.trx
         reporter: dotnet-trx
 
         

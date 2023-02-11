@@ -33,7 +33,6 @@ jobs:
     - name: Install SonarCloud scanner
       run: |
         dotnet tool install --global dotnet-sonarscanner
-        export PATH="$PATH:/home/runner/.dotnet/tools"
     - name: Dotnet restore
       working-directory: src
       run: dotnet restore
@@ -43,7 +42,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
-        export PATH="$PATH:/home/runner/.dotnet/tools"
         dotnet-sonarscanner begin \
         /k:"AdrianS-PL_GnucashPlDataImportGenerator" \
         /o:"adrian-sauer" \

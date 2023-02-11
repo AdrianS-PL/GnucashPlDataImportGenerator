@@ -249,7 +249,7 @@ namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
             Assert.AreEqual(DialogResult.OK, view.DialogResult);
         }
 
-        private List<TransactionImportFileRow> GetStandardTestData()
+        private static List<TransactionImportFileRow> GetStandardTestData()
         {
             return new List<TransactionImportFileRow>
             {
@@ -290,7 +290,7 @@ namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
             };
         }
 
-        private List<string> GetStandardTransferAccountList()
+        private static List<string> GetStandardTransferAccountList()
         {
             return new List<string> { "Aktywa:ROR Bank 1", "Aktywa:ROR Bank 2", "Aktywa:ROR Bank 3", "Wydatki:Pies", "Wydatki:Kot", "Wydatki:Chomik" };
         }

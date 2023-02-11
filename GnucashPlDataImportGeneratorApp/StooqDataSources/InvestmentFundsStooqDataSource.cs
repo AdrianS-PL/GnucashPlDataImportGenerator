@@ -11,7 +11,7 @@ namespace GnucashPlDataImportGeneratorApp.StooqDataSources
 {
     public class InvestmentFundsStooqDataSource : IPriceDataSourceForCommodityNamespace
     {
-        StooqWebsiteClient _client;
+        private readonly StooqWebsiteClient _client;
         public InvestmentFundsStooqDataSource(StooqWebsiteClient client)
         {
             _client = client;

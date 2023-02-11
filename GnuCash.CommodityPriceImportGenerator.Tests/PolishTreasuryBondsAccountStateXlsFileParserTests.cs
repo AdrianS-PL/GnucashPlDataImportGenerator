@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace GnuCash.CommodityPriceImportGenerator.Tests
 {
     [TestClass]
-    public class PolishTreasuryBondsAccountStateXlsFileParserTests
+    public class PolishTreasuryBondsAccountStateXlsFileParserTests : IDisposable
     {
         private bool disposedValue;
         private readonly string validExcelFilePath;
@@ -109,7 +109,7 @@ namespace GnuCash.CommodityPriceImportGenerator.Tests
             return path;
         }
 
-        private void WriteResourceToFile(string path, string resource)
+        private static void WriteResourceToFile(string path, string resource)
         {
             using var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream(resource);
@@ -137,7 +137,7 @@ namespace GnuCash.CommodityPriceImportGenerator.Tests
 
         public void Dispose()
         {
-            Dispose(disposing: true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
     }

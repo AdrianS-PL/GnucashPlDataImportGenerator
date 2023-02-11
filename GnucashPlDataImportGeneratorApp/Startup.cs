@@ -1,6 +1,4 @@
-﻿using GnucashPlDataImportGeneratorApp.BossaDataSources;
-using BossaWebsite;
-using GnuCash.CommodityPriceImportGenerator;
+﻿using GnuCash.CommodityPriceImportGenerator;
 using GnuCash.DataModel.DatabaseModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,13 +27,10 @@ namespace GnucashPlDataImportGeneratorApp
                 .Build();            
 
             services.AddGnuCashDataModel(Configuration);
-            services.AddBossaWebsiteClient(Configuration);
             services.AddStooqWebsiteClient(Configuration);
             services.AddCommodityPriceImportGenerator(Configuration);
             services.AddTransactionImportGenerator(Configuration);
 
-            services.AddTransient<CurrenciesBossaDataSource, CurrenciesBossaDataSource>();
-            services.AddTransient<InvestmentFundsBossaDataSource, InvestmentFundsBossaDataSource>();
             services.AddTransient<CurrenciesStooqDataSource, CurrenciesStooqDataSource>();
             services.AddTransient<InvestmentFundsStooqDataSource, InvestmentFundsStooqDataSource>();
 

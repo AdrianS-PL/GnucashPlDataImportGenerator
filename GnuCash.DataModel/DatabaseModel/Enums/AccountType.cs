@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GnuCash.DataModel.DatabaseModel.Enums
 {
-    public class AccountType
+    public static class AccountType
     {
         public const string ROOT = "ROOT";
         public const string EXPENSE = "EXPENSE";

@@ -56,7 +56,7 @@ namespace GnuCash.TransactionImportGenerator.Tests.Parsers
             Assert.IsTrue(string.IsNullOrWhiteSpace(errorMessages.ToString()), errorMessages.ToString());
         }
 
-        private IServiceProvider GetParsersProvider()
+        private static IServiceProvider GetParsersProvider()
         {
             var services = new ServiceCollection();
             services.AddOperationsFileParsers();

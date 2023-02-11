@@ -9,7 +9,7 @@ namespace GnuCash.CommodityPriceImportGenerator.Configuration
 
         public NamespaceBinding()
         {
-            CurrencyOverrides = new CurrencyOverrideConfiguration[0];
+            CurrencyOverrides = Array.Empty<CurrencyOverrideConfiguration>();
         }
 
         public string Namespace { get; set; }

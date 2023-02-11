@@ -19,8 +19,6 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport
         private List<TransactionImportFileRow> _transactionData = new List<TransactionImportFileRow>();
         private int _index = 0;
 
-        //public event EventHandler SelectedIndexChanged;
-
         event EventHandler ICheckAssignedTransferAccountDialogBoxView.TransactionAcceptedChanged
         {
             add => cbxTransactionChecked.CheckedChanged += value;

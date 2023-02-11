@@ -69,7 +69,7 @@ namespace GnuCash.CommodityPriceImportGenerator.PolishTreasuryBonds
         }
 
 
-        private bool IsIkeRow(IExcelDataReader reader)
+        private static bool IsIkeRow(IExcelDataReader reader)
         {
             var nominalValue = reader.GetValue(3);
             return nominalValue is string;

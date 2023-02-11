@@ -33,7 +33,7 @@ namespace GnuCash.DataModel
 
             foreach(var queryType in queryTypes)
             {
-                var queryInterface = queryType.GetTypeInfo().ImplementedInterfaces.Where(q => q.GetTypeInfo().ImplementedInterfaces.SingleOrDefault(r => r == typeof(IQuery)) != null).Single();
+                var queryInterface = queryType.GetTypeInfo().ImplementedInterfaces.Single(q => q.GetTypeInfo().ImplementedInterfaces.SingleOrDefault(r => r == typeof(IQuery)) != null);
                 services.AddScoped(queryInterface, queryType);
             }
 

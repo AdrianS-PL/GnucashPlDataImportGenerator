@@ -15,7 +15,7 @@ namespace GnuCash.TransactionImportGenerator
     {
         public TransactionImportFileWriter() { }
 
-        public async Task GenerateReport(List<TransactionImportFileRow> rows)
+        public static async Task GenerateReport(List<TransactionImportFileRow> rows)
         {
             using (var writer = new StreamWriter("transaction_import.csv"))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))

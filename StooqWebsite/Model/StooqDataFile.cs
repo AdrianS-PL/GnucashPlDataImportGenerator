@@ -10,7 +10,7 @@ namespace StooqWebsite.Model
 {
     public class StooqDataFile
     {
-        private List<StooqDataFileRow> _dataList;
+        private readonly List<StooqDataFileRow> _dataList;
 
         public StooqDataFile(Stream stream)
         {

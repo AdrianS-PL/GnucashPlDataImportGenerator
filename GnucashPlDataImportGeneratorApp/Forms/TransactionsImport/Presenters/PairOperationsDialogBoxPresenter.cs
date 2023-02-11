@@ -10,8 +10,8 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport.Presenters
 {
     public class PairOperationsDialogBoxPresenter
     {
-        IPairOperationsDialogBoxView _view;
-        IMessageBoxService _messageBoxService;
+        private readonly IPairOperationsDialogBoxView _view;
+        private IMessageBoxService _messageBoxService;
 
         public IMessageBoxService MessageBoxServiceInstance
         {

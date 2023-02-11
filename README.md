@@ -1,4 +1,5 @@
 # PL Generator importów do GnuCash 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=AdrianS-PL_GnucashPlDataImportGenerator&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=AdrianS-PL_GnucashPlDataImportGenerator)
 Generator plików CSV z cenami i transakcjami dla GnuCash
 
 ## Spis treści

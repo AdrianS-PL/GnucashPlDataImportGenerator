@@ -111,7 +111,7 @@ COI1024,Obligacje Skarbu Państwa,PLN,50,2000-02-17
             await TestFileGeneration("PLN", "Obligacje Skarbu Państwa", expectedFileContent, new DateTime(2000, 2, 17), data);
         }
 
-        private async Task TestFileGeneration(string currency, string bondNamespace, string expectedFileContent, DateTime priceDate,
+        private static async Task TestFileGeneration(string currency, string bondNamespace, string expectedFileContent, DateTime priceDate,
             List<PolishTreasuryBondsAccountStateFileRecord> data)
         {
             var settings = new PolishTreasuryBondsPriceImportGeneratorSettings()

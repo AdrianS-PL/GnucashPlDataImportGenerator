@@ -1,5 +1,4 @@
 ﻿using BossaTestDataImporter.Imports;
-using BossaWebsite;
 using GnuCash.CommodityPriceImportGenerator;
 using GnuCash.CommodityPriceImportGenerator.PolishTreasuryBonds;
 using GnuCash.TransactionImportGenerator;
@@ -113,7 +112,7 @@ namespace GnucashPlDataImportGeneratorApp.Forms
 
             fileRows = fileRows.OrderBy(q => q.Date).ToList();
 
-            await writer.GenerateReport(fileRows);
+            await TransactionImportFileWriter.GenerateReport(fileRows);
 
             button2.Enabled = true;
         }

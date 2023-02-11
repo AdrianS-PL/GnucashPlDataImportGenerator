@@ -16,8 +16,8 @@ namespace GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.
 {
     class MlNetOperationTransferAccountPredictor : IOperationTransferAccountPredictor
     {
-        ITransferAccountPredictionDataQuery _getTrainingDataQuery;
-        ITrainingAndTestDataSplitStrategy<MlNetPreSplitPredictionInputRow> _splitStrategy;
+        private readonly ITransferAccountPredictionDataQuery _getTrainingDataQuery;
+        private readonly ITrainingAndTestDataSplitStrategy<MlNetPreSplitPredictionInputRow> _splitStrategy;
         public MlNetOperationTransferAccountPredictor(ITransferAccountPredictionDataQuery getTrainingDataQuery,
             ITrainingAndTestDataSplitStrategy<MlNetPreSplitPredictionInputRow>  splitStrategy)
         {
@@ -30,7 +30,7 @@ namespace GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.
             var trainingOperations = (await _getTrainingDataQuery.GetTransferAccountPredictionDataAsync()).Select(q => new MlNetPreSplitPredictionInputRow()
             { Description = q.Description, Date = q.Date, TransferAccountId = q.TransferAccountGuid.ToString() });
 
-            if (trainingOperations.Count() == 0)
+            if (!trainingOperations.Any())
                 return new EmptyPredictionModel();
 
             MLContext ml = new MLContext();
@@ -46,7 +46,7 @@ namespace GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.
 
             byte[] trainedModelData;
 
-            using (MemoryStream ms = new MemoryStream())
+            using (MemoryStream ms = new())
             {
                 ml.Model.Save(trainedModel, trainingDataView.Schema, ms);
                 trainedModelData = ms.ToArray();

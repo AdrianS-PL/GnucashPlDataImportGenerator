@@ -74,7 +74,7 @@ namespace GnuCash.TransactionImportGenerator.Tests
         {
             var parser = new OperationFilesParser(null);
 
-            var result = await parser.ParseOperationsFiles(new string[0]);
+            var result = await parser.ParseOperationsFiles(Array.Empty<string>());
 
             Assert.AreEqual(0, result.LoadedOperations.Count);
             Assert.AreEqual(0, result.PairableOperations.Count());
@@ -145,7 +145,7 @@ namespace GnuCash.TransactionImportGenerator.Tests
             Assert.AreEqual(fileContents, result.LoadedOperations[0].Description);
         }
 
-        private IServiceProvider GetParsersProvider(List<Type> types)
+        private static IServiceProvider GetParsersProvider(List<Type> types)
         {
             var services = new ServiceCollection();
             foreach (var type in types)
@@ -169,7 +169,7 @@ namespace GnuCash.TransactionImportGenerator.Tests
             return path;
         }
 
-        private void WriteResourceToFile(string path, string resource)
+        private static void WriteResourceToFile(string path, string resource)
         {
             using var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream(resource);

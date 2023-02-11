@@ -13,12 +13,12 @@ namespace GnuCash.TransactionImportGenerator.Parsers
 
         public abstract List<Operation> MapToOperationsFile(string xml);
 
-        public bool CanParse(string xml)
+        public bool CanParse(string fileContent)
         {
             bool success = true;
             try
             {
-                ParseXml(xml);
+                ParseXml(fileContent);
             }
             catch
             {
@@ -29,7 +29,7 @@ namespace GnuCash.TransactionImportGenerator.Parsers
         }
 
         /// <exception cref="System.Exception">Can throw various exceptions</exception>
-        protected ContractType ParseXml(string xml)
+        protected static ContractType ParseXml(string xml)
         {
             ContractType result = null;
 

@@ -7,7 +7,7 @@ namespace GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.
 {
     abstract class PreSplitDataMappingProfile<PredictionInputType, PreSplitInputType> : Profile
     {
-        public PreSplitDataMappingProfile()
+        protected PreSplitDataMappingProfile()
         {
             GetMap(CreateMap<PreSplitInputType, PredictionInputType>());
         }

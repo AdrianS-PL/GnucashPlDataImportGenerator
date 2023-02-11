@@ -85,7 +85,7 @@ namespace GnuCash.TransactionImportGenerator.Parsers.IngCsvOperationsFile
             return r.ToList();
         }
 
-        private string GetAccountCode(string accountLine)
+        private static string GetAccountCode(string accountLine)
         {
             var cultureInfo = CultureInfo.InvariantCulture;
 
@@ -99,24 +99,24 @@ namespace GnuCash.TransactionImportGenerator.Parsers.IngCsvOperationsFile
             return csv.GetRecords<AccountDataLine>().Single().AccountCode;
         }
 
-        private int GetAccountsHeaderLineIndex(List<string> lines)
+        private static int GetAccountsHeaderLineIndex(List<string> lines)
         {
             string accountsHeaderLine = lines.First(q => q.StartsWith("\"Wybrane rachunki:\""));
             return lines.IndexOf(accountsHeaderLine);
         }
 
-        private int GetOperationsDataStartLineIndex(List<string> lines, int accountsHeaderLineIndex)
+        private static int GetOperationsDataStartLineIndex(List<string> lines, int accountsHeaderLineIndex)
         {
             string operationsDataStartLine = lines.Skip(accountsHeaderLineIndex + 1).First(q => q.StartsWith("\"Data transakcji\""));
             return lines.IndexOf(operationsDataStartLine);
         }
 
-        private int GetOperationsDataEndLineIndex(List<string> lines, int operationsDataStartLineIndex)
+        private static int GetOperationsDataEndLineIndex(List<string> lines, int operationsDataStartLineIndex)
         {
             return lines.FindIndex(operationsDataStartLineIndex, q => string.IsNullOrWhiteSpace(q)) - 1;
         }
 
-        private List<string> ReadAsLines(string ingCsv)
+        private static List<string> ReadAsLines(string ingCsv)
         {
             var lines = new List<string>();
             using var reader = new StringReader(ingCsv);

@@ -1,52 +1,45 @@
-﻿using GnucashPlDataImportGeneratorApp.BossaDataSources;
-using BossaWebsite;
-using GnuCash.CommodityPriceImportGenerator;
-using GnuCash.DataModel.DatabaseModel;
-using Microsoft.EntityFrameworkCore;
+﻿using GnuCash.CommodityPriceImportGenerator;
+using GnuCash.DataModel;
+using GnuCash.TransactionImportGenerator;
+using GnucashPlDataImportGeneratorApp.StooqDataSources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
-using GnuCash.TransactionImportGenerator;
-using GnuCash.DataModel;
 using StooqWebsite;
-using GnucashPlDataImportGeneratorApp.StooqDataSources;
+using System;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
 
-namespace GnucashPlDataImportGeneratorApp
+namespace GnucashPlDataImportGeneratorApp;
+
+[ExcludeFromCodeCoverage]
+
+static class Startup
 {
-    static class Startup
+    public static IServiceProvider ConfigureServices()
     {
-        public static IServiceProvider ConfigureServices()
-        {
-            var services = new ServiceCollection();
+        var services = new ServiceCollection();
 
-            IConfiguration Configuration = new ConfigurationBuilder()
-                .SetBasePath(GetBasePath())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .Build();            
+        IConfiguration Configuration = new ConfigurationBuilder()
+            .SetBasePath(GetBasePath())
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .Build();
 
-            services.AddGnuCashDataModel(Configuration);
-            services.AddBossaWebsiteClient(Configuration);
-            services.AddStooqWebsiteClient(Configuration);
-            services.AddCommodityPriceImportGenerator(Configuration);
-            services.AddTransactionImportGenerator(Configuration);
+        services.AddGnuCashDataModel(Configuration);
+        services.AddStooqWebsiteClient(Configuration);
+        services.AddCommodityPriceImportGenerator(Configuration);
+        services.AddTransactionImportGenerator(Configuration);
 
-            services.AddTransient<CurrenciesBossaDataSource, CurrenciesBossaDataSource>();
-            services.AddTransient<InvestmentFundsBossaDataSource, InvestmentFundsBossaDataSource>();
-            services.AddTransient<CurrenciesStooqDataSource, CurrenciesStooqDataSource>();
-            services.AddTransient<InvestmentFundsStooqDataSource, InvestmentFundsStooqDataSource>();
+        services.AddTransient<CurrenciesStooqDataSource, CurrenciesStooqDataSource>();
+        services.AddTransient<InvestmentFundsStooqDataSource, InvestmentFundsStooqDataSource>();
 
 
-            return services.BuildServiceProvider();
-        }
+        return services.BuildServiceProvider();
+    }
 
-        private static string GetBasePath()
-        {
-            using var processModule = Process.GetCurrentProcess().MainModule;
-            return Path.GetDirectoryName(processModule?.FileName);
-        }
+    private static string GetBasePath()
+    {
+        using var processModule = Process.GetCurrentProcess().MainModule;
+        return Path.GetDirectoryName(processModule?.FileName);
     }
 }

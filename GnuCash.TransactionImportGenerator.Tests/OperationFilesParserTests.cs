@@ -74,7 +74,7 @@ namespace GnuCash.TransactionImportGenerator.Tests
         {
             var parser = new OperationFilesParser(null);
 
-            var result = await parser.ParseOperationsFiles(new string[0]);
+            var result = await parser.ParseOperationsFiles(Array.Empty<string>());
 
             Assert.AreEqual(0, result.LoadedOperations.Count);
             Assert.AreEqual(0, result.PairableOperations.Count());
@@ -145,7 +145,7 @@ namespace GnuCash.TransactionImportGenerator.Tests
             Assert.AreEqual(fileContents, result.LoadedOperations[0].Description);
         }
 
-        private IServiceProvider GetParsersProvider(List<Type> types)
+        private static IServiceProvider GetParsersProvider(List<Type> types)
         {
             var services = new ServiceCollection();
             foreach (var type in types)
@@ -155,21 +155,21 @@ namespace GnuCash.TransactionImportGenerator.Tests
         }
 
 
-        private string GetWindows1250FilePath()
+        private static string GetWindows1250FilePath()
         {
             string path = Path.GetTempFileName();
             WriteResourceToFile(path, "GnuCash.TransactionImportGenerator.Tests.TestData.OperationFilesParserTests_1250.txt");
             return path;
         }
 
-        private string GetUtf8FilePath()
+        private static string GetUtf8FilePath()
         {
             string path = Path.GetTempFileName();
             WriteResourceToFile(path, "GnuCash.TransactionImportGenerator.Tests.TestData.OperationFilesParserTests_utf8.txt");
             return path;
         }
 
-        private void WriteResourceToFile(string path, string resource)
+        private static void WriteResourceToFile(string path, string resource)
         {
             using var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream(resource);
@@ -184,11 +184,6 @@ namespace GnuCash.TransactionImportGenerator.Tests
         {
             if (!disposedValue)
             {
-                //if (disposing)
-                //{
-                //    // dispose managed state (managed objects)
-                //}
-
                 File.Delete(windows1250FilePath);
                 File.Delete(utf8FilePath);
                 disposedValue = true;

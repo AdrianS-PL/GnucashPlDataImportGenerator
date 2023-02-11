@@ -25,7 +25,7 @@ namespace GnuCash.TransactionImportGenerator
         public async Task<OperationFilesParsingResult> ParseOperationsFiles(string[] filePathnames)
         {
             var result = new OperationFilesParsingResult();
-            filePathnames ??= new string[0];
+            filePathnames ??= Array.Empty<string>();
 
             foreach (string filePathname in filePathnames)
             {

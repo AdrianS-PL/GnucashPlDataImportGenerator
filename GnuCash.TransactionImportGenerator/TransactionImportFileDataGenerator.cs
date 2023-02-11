@@ -34,9 +34,9 @@ namespace GnuCash.TransactionImportGenerator
             var accountFullNames = await _context.Set<Account>().GetAccountFullNamesAsync();
             foreach (var pair in operationPairs)
             {
-                string account1Name = accountFullNames.Where(q => q.Code == pair.AccountCode1).SingleOrDefault()?.FullName 
+                string account1Name = accountFullNames.SingleOrDefault(q => q.Code == pair.AccountCode1)?.FullName 
                     ?? throw new KeyNotFoundException($"Brak konta o kodzie: {pair.AccountCode1}");
-                string account2Name = accountFullNames.Where(q => q.Code == pair.AccountCode2).SingleOrDefault()?.FullName
+                string account2Name = accountFullNames.SingleOrDefault(q => q.Code == pair.AccountCode2)?.FullName
                     ?? throw new KeyNotFoundException($"Brak konta o kodzie: {pair.AccountCode2}");
 
                 var row = new TransactionImportFileRow()
@@ -52,16 +52,16 @@ namespace GnuCash.TransactionImportGenerator
                 fileRows.Add(row);
             }
 
-            string defaultTransferAccountGuid = accountFullNames.Where(q => q.Code == "DEFAULT TRANSFER ACCOUNT").SingleOrDefault()?.Guid
+            string defaultTransferAccountGuid = accountFullNames.SingleOrDefault(q => q.Code == "DEFAULT TRANSFER ACCOUNT")?.Guid
                     ?? throw new KeyNotFoundException($"Brak konta o kodzie: DEFAULT TRANSFER ACCOUNT");
 
             foreach (var operation in operations)
             {
                 var guid = predictionModelData.PredictTransferAccount(operation, defaultTransferAccountGuid);
 
-                string account1Name = accountFullNames.Where(q => q.Code == operation.AccountCode).SingleOrDefault()?.FullName
+                string account1Name = accountFullNames.SingleOrDefault(q => q.Code == operation.AccountCode)?.FullName
                     ?? throw new KeyNotFoundException($"Brak konta o kodzie: {operation.AccountCode}");
-                string account2Name = accountFullNames.Where(q => q.Guid == guid).SingleOrDefault()?.FullName
+                string account2Name = accountFullNames.SingleOrDefault(q => q.Guid == guid)?.FullName
                     ?? throw new KeyNotFoundException($"Brak konta o GUID: {guid}");
 
                 var row = new TransactionImportFileRow()

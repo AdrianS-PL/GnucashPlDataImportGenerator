@@ -21,7 +21,7 @@ namespace GnuCash.CommodityPriceImportGenerator
 		public PriceImportGenerator(IServiceProvider serviceProvider, IOptionsMonitor<CommodityPriceImportGeneratorSettings> settings, GnuCashContext context)
 		{
 			_settings = settings.CurrentValue ?? throw new ArgumentNullException(nameof(settings));
-			_settings.Bindings ??= new NamespaceBinding[] { };
+			_settings.Bindings ??= Array.Empty<NamespaceBinding>();
 			_context = context;
 			_serviceProvider = serviceProvider;
 		}

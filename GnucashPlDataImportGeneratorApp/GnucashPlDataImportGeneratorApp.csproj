@@ -31,7 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BossaWebsite\BossaWebsite.csproj" />
     <ProjectReference Include="..\GnuCash.CommodityPriceImportGenerator\GnuCash.CommodityPriceImportGenerator.csproj" />
     <ProjectReference Include="..\GnuCash.DataModel\GnuCash.DataModel.csproj" />
     <ProjectReference Include="..\GnuCash.TransactionImportGenerator\GnuCash.TransactionImportGenerator.csproj" />

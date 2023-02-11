@@ -9,7 +9,6 @@ namespace GnuCash.TransactionImportGenerator.Parsers.PocztowyMt940OperationsFile
 {
     class PocztowyMt940OperationsFileParser : IOperationsFileParser
     {
-        //public const string HeaderReferencesTag = ":20:";
         public const string HeaderAccountTag = ":25:";
         public const string HeaderOpeningBalanceTag = ":60F:";
         public const string TransactionTag = "\r\n:61:";
@@ -73,20 +72,16 @@ namespace GnuCash.TransactionImportGenerator.Parsers.PocztowyMt940OperationsFile
             return (tmp[0], tmp[1]);
         }
 
-        private Operation ParseTransaction(string transactionPart)
+        private static Operation ParseTransaction(string transactionPart)
         {
             const int valueDateYearIndex = 0;
             const int valueDateMonthIndex = 2;
             const int valueDateDayIndex = 4;
-            //const int bookingDateMonthIndex = 6;
-            //const int bookingDateDayIndex = 8;
             const int creditDebitIndicatorIndex = 10;
 
             int valueDateYear = int.Parse(transactionPart.Substring(valueDateYearIndex, 2)) + 2000;
             int valueDateMonth = int.Parse(transactionPart.Substring(valueDateMonthIndex, 2));
             int valueDateDay = int.Parse(transactionPart.Substring(valueDateDayIndex, 2));
-            //int bookingDateMonth = int.Parse(transactionPart.Substring(bookingDateMonthIndex, 2));
-            //int bookingDateDay = int.Parse(transactionPart.Substring(bookingDateDayIndex, 2));
 
             int amountCommaIndex = transactionPart.IndexOf(',');
 
@@ -111,25 +106,24 @@ namespace GnuCash.TransactionImportGenerator.Parsers.PocztowyMt940OperationsFile
             string[] subfieldsStrings = transactionDetailsPart.Split(SubfieldsSeparator, StringSplitOptions.RemoveEmptyEntries);
             string[] subfieldsStringsWithoutTransactionCode = subfieldsStrings.Skip(1).ToArray();
 
-            string transactionTitle = "";
-            string transactionAddressData = "";
+            var transactionTitle = new StringBuilder();
+            var transactionAddressData = new StringBuilder();
             string beneficiaryAccount = "";
 
             foreach (string subfield in subfieldsStringsWithoutTransactionCode)
             {
                 if (TransactionTitleCodes.Any(q => subfield.StartsWith(q)))
                 {
-                    transactionTitle += subfield.Substring(2);
+                    transactionTitle.Append(subfield.AsSpan(2));
                 }
                 else if (TransactionAddressCodes.Any(q => subfield.StartsWith(q)))
                 {
-                    transactionAddressData += subfield.Substring(2);
+                    transactionAddressData.Append(subfield.AsSpan(2));
                 }
-                else if (subfield.StartsWith(BeneficiaryAccountCode))
+                else if (subfield.StartsWith(BeneficiaryAccountCode) && subfield.Length > BeneficiaryAccountCode.Length)
                 {
-                    if (subfield.Length > BeneficiaryAccountCode.Length)
-                        //usunięcie PL z numeru konta
-                        beneficiaryAccount = subfield.Substring(4);
+                    //usunięcie PL z numeru konta
+                    beneficiaryAccount = subfield.Substring(4);
                 }
             }
 
@@ -142,10 +136,10 @@ namespace GnuCash.TransactionImportGenerator.Parsers.PocztowyMt940OperationsFile
             }
 
             sb.Append("Dane kontrahenta: ");
-            sb.AppendLine(transactionAddressData);
+            sb.AppendLine(transactionAddressData.ToString());
 
             sb.Append("Tytuł: ");
-            sb.AppendLine(transactionTitle);
+            sb.AppendLine(transactionTitle.ToString());
 
             return sb.ToString();
 

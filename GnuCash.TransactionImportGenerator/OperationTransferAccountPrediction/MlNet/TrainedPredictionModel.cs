@@ -12,7 +12,7 @@ namespace GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.
 {
     class TrainedPredictionModel : ITrainedPredictionModel
     {
-        private class OperationPrediction
+        private sealed class OperationPrediction
         {
             [ColumnName("PredictedLabel")]
             public string TransferAccountId { get; set; }

@@ -12,10 +12,12 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport.ViewInterface
         DataGridViewSelectedRowCollection PairableOperationsGridSelectedRows { get; }
 
         DataGridViewRowCollection PairableOperationsGridRows { get; }
+        DataGridView PairableOperationsGrid { get; }
 
         DataGridViewSelectedRowCollection OperationPairsGridSelectedRows { get; }
 
         DataGridViewRowCollection OperationPairsGridRows { get; }
+        DataGridView OperationPairsGrid { get; }
 
         BindingList<Operation> PairableOperationsDataSource { get; set; }
 

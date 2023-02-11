@@ -18,7 +18,7 @@ namespace GnuCash.CommodityPriceImportGenerator.PolishTreasuryBonds
         public async Task<PolishTreasuryBondsAccountStateFilesParsingResult> ParseOperationsFiles(string[] filePathnames)
         {
             var result = new PolishTreasuryBondsAccountStateFilesParsingResult();
-            filePathnames ??= new string[0];
+            filePathnames ??= Array.Empty<string>();
 
             foreach (string filePathname in filePathnames)
             {

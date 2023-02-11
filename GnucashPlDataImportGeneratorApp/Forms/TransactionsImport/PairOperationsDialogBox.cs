@@ -28,12 +28,14 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport
 
         DataGridViewSelectedRowCollection IPairOperationsDialogBoxView.PairableOperationsGridSelectedRows { get => dataGridView1.SelectedRows; }
         DataGridViewRowCollection IPairOperationsDialogBoxView.PairableOperationsGridRows { get => dataGridView1.Rows; }
+        DataGridView IPairOperationsDialogBoxView.PairableOperationsGrid { get => dataGridView1; }
 
         public BindingList<OperationPair> OperationPairsDataSource { get; private set; } = new BindingList<OperationPair>();
 
         DataGridViewSelectedRowCollection IPairOperationsDialogBoxView.OperationPairsGridSelectedRows => dataGridView2.SelectedRows;
 
         DataGridViewRowCollection IPairOperationsDialogBoxView.OperationPairsGridRows => dataGridView2.Rows;
+        DataGridView IPairOperationsDialogBoxView.OperationPairsGrid { get => dataGridView2; }
 
         BindingList<OperationPair> IPairOperationsDialogBoxView.OperationPairsDataSource
         {

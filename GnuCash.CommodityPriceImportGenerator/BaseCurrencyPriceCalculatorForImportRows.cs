@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace GnuCash.CommodityPriceImportGenerator
 {
-    internal class BaseCurrencyPriceCalculatorForImportRows
+    internal static class BaseCurrencyPriceCalculatorForImportRows
     {
         public static IEnumerable<CommodityPriceImportFileRow> CalculateBaseCurrencyPricesRows(IEnumerable<CommodityPriceImportFileRow> inputRows, string baseCurrency)
         {
@@ -14,11 +13,11 @@ namespace GnuCash.CommodityPriceImportGenerator
 
             var rowsWithPriceNotInBaseCurrency = inputRows.Where(q => q.BaseCurrency != baseCurrency);
 
-            foreach(var inputRow in rowsWithPriceNotInBaseCurrency)
+            foreach (var inputRow in rowsWithPriceNotInBaseCurrency)
             {
                 var rowWithCurrencyRate = inputRows.FirstOrDefault(q => q.Mnemonic == inputRow.BaseCurrency && q.Date == inputRow.Date && q.BaseCurrency == baseCurrency);
 
-                if(rowWithCurrencyRate != null)
+                if (rowWithCurrencyRate != null)
                 {
                     yield return new CommodityPriceImportFileRow()
                     {

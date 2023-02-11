@@ -18,7 +18,7 @@ namespace GnuCash.CommodityPriceImportGenerator.Tests
         {
             var filesParser = new PolishTreasuryBondsAccountStateFilesParser(GetParsersProvider(new List<Type>()));
 
-            var result = await filesParser.ParseOperationsFiles(new string[] { });
+            var result = await filesParser.ParseOperationsFiles(Array.Empty<string>());
 
             Assert.IsNotNull(result);
             Assert.AreEqual(0, result.LoadedFileRecords.Count);
@@ -120,7 +120,7 @@ namespace GnuCash.CommodityPriceImportGenerator.Tests
             CollectionAssert.AreEquivalent(allData, result.LoadedFileRecords);
         }
 
-        private IServiceProvider GetParsersProvider(IEnumerable<IPolishTreasuryBondsAccountStateFileParser> instances)
+        private static IServiceProvider GetParsersProvider(IEnumerable<IPolishTreasuryBondsAccountStateFileParser> instances)
         {
             var services = new ServiceCollection();
 
@@ -130,7 +130,7 @@ namespace GnuCash.CommodityPriceImportGenerator.Tests
             return services.BuildServiceProvider();
         }
 
-        private IServiceProvider GetParsersProvider(List<Type> types)
+        private static IServiceProvider GetParsersProvider(List<Type> types)
         {
             var services = new ServiceCollection();
             foreach (var type in types)

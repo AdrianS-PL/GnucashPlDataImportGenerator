@@ -40,11 +40,11 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
-        dotnet-sonarscanner begin \
-        /k:"AdrianS-PL_GnucashPlDataImportGenerator" \
-        /o:"adrian-sauer" \
-        /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
-        /d:sonar.host.url="https://sonarcloud.io" \
+        dotnet-sonarscanner begin `
+        /k:"AdrianS-PL_GnucashPlDataImportGenerator" `
+        /o:"adrian-sauer" `
+        /d:sonar.login="${{ secrets.SONAR_TOKEN }}" `
+        /d:sonar.host.url="https://sonarcloud.io" `
         /d:sonar.cs.opencover.reportsPaths="TestResults/**/coverage.opencover.xml"
         dotnet build --no-restore
         dotnet test --no-restore --settings coverlet.runsettings --results-directory:"./TestResults/" --logger "trx"

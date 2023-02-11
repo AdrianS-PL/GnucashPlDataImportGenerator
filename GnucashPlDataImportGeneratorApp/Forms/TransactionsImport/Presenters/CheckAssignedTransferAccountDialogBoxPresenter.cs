@@ -78,7 +78,7 @@ namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport.Presenters
             if (_view.TransactionData.All(q => q.AssignedTransferAccountChecked))
                 _view.DialogResult = DialogResult.OK;
             else
-                _messageBoxService.ShowErrorMessage("Nie wszystkie transakcje zostały zaakceptowane");
+                MessageBoxServiceInstance.ShowErrorMessage("Nie wszystkie transakcje zostały zaakceptowane");
         }
 
         public void OnCancelButtonClick()

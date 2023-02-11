@@ -343,3 +343,4 @@ healthchecksdb
 /CodeCoverageReport
 /tools
 **/CodeCoverageResults/**/*
+PublishResult*/

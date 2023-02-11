@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
 
-namespace GnuCash.CommodityPriceImportGenerator.Configuration
+namespace GnuCash.CommodityPriceImportGenerator.Configuration;
+
+[ExcludeFromCodeCoverage]
+internal class CommodityPriceImportGeneratorSettings
 {
-    internal class CommodityPriceImportGeneratorSettings
-    {
-        public NamespaceBinding[] Bindings { get; set; }
-        
-        public string GeneratedFilename { get; set; }
-        
-        public string BaseCurrency { get; set; }
-    }
+    public NamespaceBinding[] Bindings { get; set; }
+
+    public string GeneratedFilename { get; set; }
+
+    public string BaseCurrency { get; set; }
 }

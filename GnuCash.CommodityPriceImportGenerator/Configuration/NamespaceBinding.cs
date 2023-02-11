@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics.CodeAnalysis;
 
-namespace GnuCash.CommodityPriceImportGenerator.Configuration
+namespace GnuCash.CommodityPriceImportGenerator.Configuration;
+
+[ExcludeFromCodeCoverage]
+internal class NamespaceBinding
 {
-    internal class NamespaceBinding
+
+    public NamespaceBinding()
     {
-
-        public NamespaceBinding()
-        {
-            CurrencyOverrides = Array.Empty<CurrencyOverrideConfiguration>();
-        }
-
-        public string Namespace { get; set; }
-        public string DataSourceTypeName { get; set; }
-        public CurrencyOverrideConfiguration[] CurrencyOverrides { get; set; }
+        CurrencyOverrides = Array.Empty<CurrencyOverrideConfiguration>();
     }
+
+    public string Namespace { get; set; }
+    public string DataSourceTypeName { get; set; }
+    public CurrencyOverrideConfiguration[] CurrencyOverrides { get; set; }
 }

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
 
-namespace GnuCash.CommodityPriceImportGenerator.Configuration
+namespace GnuCash.CommodityPriceImportGenerator.Configuration;
+
+[ExcludeFromCodeCoverage]
+internal class CurrencyOverrideConfiguration
 {
-    internal class CurrencyOverrideConfiguration
-    {
-        public string Mnemonic { get; set; }
-        public string Currency { get; set; }
-    }
+    public string Mnemonic { get; set; }
+    public string Currency { get; set; }
 }

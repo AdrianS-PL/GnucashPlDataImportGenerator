@@ -1,19 +1,16 @@
 ﻿using BossaTestDataImporter.Imports.ViewModels;
 using GnuCash.DataModel.Dtos;
-using GnuCash.TransactionImportGenerator.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GnucashPlDataImportGeneratorApp.Forms.TransactionsImport
 {
+    [ExcludeFromCodeCoverage]
     public partial class FilesImportResultDialogBox : Form
     {
         private List<FileImportResultGridRowViewModel> _importResults;

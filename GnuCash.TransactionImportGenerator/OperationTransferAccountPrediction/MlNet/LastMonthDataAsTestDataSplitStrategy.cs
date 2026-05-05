@@ -1,17 +1,15 @@
-﻿using Castle.Core.Internal;
-using GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.MlNet.Model;
+﻿using GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.MlNet.Model;
 using Microsoft.ML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.MlNet
 {
     class LastMonthDataAsTestDataSplitStrategy : TrainingAndTestDataSplitStrategy<MlNetPredictionInputRow, MlNetPreSplitPredictionInputRow>,
         ITrainingAndTestDataSplitStrategy<MlNetPreSplitPredictionInputRow>
     {
-        public LastMonthDataAsTestDataSplitStrategy(MlNetPreSplitMappingProfile mappingProfile) : base(mappingProfile)
+        public LastMonthDataAsTestDataSplitStrategy(MlNetPreSplitPredictionInputRowSimpleMapper simpleMapper) : base(simpleMapper)
         {
         }
 
@@ -21,7 +19,7 @@ namespace GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.
 
             data = data ?? throw new NullReferenceException($"{nameof(data)} argument cannot be null");
 
-            if (data.IsNullOrEmpty())
+            if (!data.Any())
                 throw new ArgumentException($"{nameof(data)} cannot be empty");
 
             DateTime maxDate = data.Max(q => q.Date);

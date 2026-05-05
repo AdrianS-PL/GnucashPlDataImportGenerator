@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using CsvHelper.Configuration;
 using GnuCash.TransactionImportGenerator.Model;
 using GnuCash.TransactionImportGenerator.Parsers;
 using GnuCash.TransactionImportGenerator.Parsers.IngCsvOperationsFile.DataContract;
@@ -63,11 +64,14 @@ namespace GnuCash.TransactionImportGenerator.Parsers.IngCsvOperationsFile
             string csvDataString = string.Join(Environment.NewLine, csvDataLines);
 
             var cultureInfo = CultureInfo.GetCultureInfo("pl");
-            using var reader = new StringReader(csvDataString);
-            using var csv = new CsvReader(reader, cultureInfo);
+            var config = new CsvConfiguration(cultureInfo)
+            {
+                HasHeaderRecord = true,
+                Delimiter = ";"
+            };
 
-            csv.Configuration.HasHeaderRecord = true;
-            csv.Configuration.Delimiter = ";";
+            using var reader = new StringReader(csvDataString);
+            using var csv = new CsvReader(reader, config);
 
             var fileRecords = csv.GetRecords<OperationDataLine>().ToList();
 
@@ -88,13 +92,15 @@ namespace GnuCash.TransactionImportGenerator.Parsers.IngCsvOperationsFile
         private static string GetAccountCode(string accountLine)
         {
             var cultureInfo = CultureInfo.InvariantCulture;
-
+            var config = new CsvConfiguration(cultureInfo)
+            {
+                HasHeaderRecord = false,
+                Delimiter = ";"
+            };
 
             using var reader = new StringReader(accountLine);
-            using var csv = new CsvReader(reader, cultureInfo);
-
-            csv.Configuration.HasHeaderRecord = false;
-            csv.Configuration.Delimiter = ";";
+            using var csv = new CsvReader(reader, config);
+            
 
             return csv.GetRecords<AccountDataLine>().Single().AccountCode;
         }

@@ -15,12 +15,12 @@ namespace GnuCash.CommodityPriceImportGenerator
     internal class PriceImportGenerator : IPriceImportGenerator
     {
 		private readonly CommodityPriceImportGeneratorSettings _settings;
-		private readonly GnuCashContext _context; //dispose?
+		private readonly GnuCashContext _context;
 		private readonly IServiceProvider _serviceProvider;
 
-		public PriceImportGenerator(IServiceProvider serviceProvider, IOptionsMonitor<CommodityPriceImportGeneratorSettings> settings, GnuCashContext context)
+		public PriceImportGenerator(IServiceProvider serviceProvider, IOptions<CommodityPriceImportGeneratorSettings> settings, GnuCashContext context)
 		{
-			_settings = settings.CurrentValue ?? throw new ArgumentNullException(nameof(settings));
+			_settings = settings.Value ?? throw new ArgumentNullException(nameof(settings));
 			_settings.Bindings ??= Array.Empty<NamespaceBinding>();
 			_context = context;
 			_serviceProvider = serviceProvider;

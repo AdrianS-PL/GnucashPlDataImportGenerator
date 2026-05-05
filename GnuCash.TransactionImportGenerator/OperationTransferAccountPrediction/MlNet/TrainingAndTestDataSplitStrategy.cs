@@ -1,19 +1,16 @@
-﻿using AutoMapper;
-using Microsoft.ML;
+﻿using Microsoft.ML;
 using System.Collections.Generic;
 
 namespace GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.MlNet
 {
     abstract class TrainingAndTestDataSplitStrategy<PredictionInputType, PreSplitInputType> where PredictionInputType : class where PreSplitInputType : class
     {
-        private readonly IMapper _mapper;
+        private readonly SimpleMapper<PredictionInputType, PreSplitInputType> _mapper;
 
-        protected TrainingAndTestDataSplitStrategy(PreSplitDataMappingProfile<PredictionInputType, PreSplitInputType> mappingProfile)
+
+        protected TrainingAndTestDataSplitStrategy(SimpleMapper<PredictionInputType, PreSplitInputType> simpleMapper)
         {
-            _mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(mappingProfile);
-            }).CreateMapper();
+            _mapper = simpleMapper;
         }
 
         public abstract (IDataView trainingDataView, IDataView testDataView) SplitTrainingAndTestData(IEnumerable<PreSplitInputType> data);
@@ -24,7 +21,7 @@ namespace GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.
 
             foreach (var item in preSplitTypeData)
             {
-                var mapped = _mapper.Map<PredictionInputType>(item);
+                var mapped = _mapper.Map(item);
                 result.Add(mapped);
             }
 

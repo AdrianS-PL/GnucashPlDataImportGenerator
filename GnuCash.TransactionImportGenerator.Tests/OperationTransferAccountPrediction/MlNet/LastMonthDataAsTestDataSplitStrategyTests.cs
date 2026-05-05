@@ -13,25 +13,28 @@ namespace GnuCash.TransactionImportGenerator.Tests.OperationTransferAccountPredi
     public class LastMonthDataAsTestDataSplitStrategyTests
     {
         [TestMethod()]
-        [ExpectedException(typeof(NullReferenceException))]
         public void When_InputDataIsNull_Should_ThrowNullReferenceException()
         {
-            var strategy = new LastMonthDataAsTestDataSplitStrategy(new MlNetPreSplitMappingProfile());
+            var strategy = new LastMonthDataAsTestDataSplitStrategy(new MlNetPreSplitPredictionInputRowSimpleMapper());
 
-            strategy.SplitTrainingAndTestData(null);
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                strategy.SplitTrainingAndTestData(null);
+            });
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentException))]
         public void When_InputDataIsEmpty_Should_ThrowNullReferenceException()
         {
             var data = new List<MlNetPreSplitPredictionInputRow>();
 
-            var strategy = new LastMonthDataAsTestDataSplitStrategy(new MlNetPreSplitMappingProfile());
-
-            strategy.SplitTrainingAndTestData(data);
+            var strategy = new LastMonthDataAsTestDataSplitStrategy(new MlNetPreSplitPredictionInputRowSimpleMapper());
 
 
+            Assert.Throws<ArgumentException>(() =>
+            {
+                strategy.SplitTrainingAndTestData(data);
+            });
         }
 
         [TestMethod()]
@@ -43,7 +46,7 @@ namespace GnuCash.TransactionImportGenerator.Tests.OperationTransferAccountPredi
                 new MlNetPreSplitPredictionInputRow() { Date = new DateTime(2000, 1, 2) }
             };
 
-            var strategy = new LastMonthDataAsTestDataSplitStrategy(new MlNetPreSplitMappingProfile());
+            var strategy = new LastMonthDataAsTestDataSplitStrategy(new MlNetPreSplitPredictionInputRowSimpleMapper());
 
             var result = strategy.SplitTrainingAndTestData(data);
             Assert.AreEqual(data.Count, result.testDataView.Preview().RowView.Length);
@@ -62,7 +65,7 @@ namespace GnuCash.TransactionImportGenerator.Tests.OperationTransferAccountPredi
                 new MlNetPreSplitPredictionInputRow() { Date = new DateTime(2000, 2, 3) }
             };
 
-            var strategy = new LastMonthDataAsTestDataSplitStrategy(new MlNetPreSplitMappingProfile());
+            var strategy = new LastMonthDataAsTestDataSplitStrategy(new MlNetPreSplitPredictionInputRowSimpleMapper());
 
             var result = strategy.SplitTrainingAndTestData(data);
             Assert.AreEqual(3, result.testDataView.Preview().RowView.Length);

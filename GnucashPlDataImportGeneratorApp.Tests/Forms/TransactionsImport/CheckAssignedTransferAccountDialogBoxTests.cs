@@ -56,12 +56,14 @@ namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
         public void Should_ThrowNullReferenceException_When_TransactionDataIsNull()
         {
             var form = new CheckAssignedTransferAccountDialogBox();
             var transferAccounts = GetStandardTransferAccountList();
-            form.InitializeData(null, transferAccounts);
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                form.InitializeData(null, transferAccounts);
+            });
         }
 
         [TestMethod]
@@ -84,12 +86,14 @@ namespace GnucashPlDataImportGeneratorApp.Tests.Forms.TransactionsImport
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
         public void Should_ThrowNullReferenceException_When_AvailableTransferAccountsIsNull()
         {
             var form = new CheckAssignedTransferAccountDialogBox();
             var inputData = GetStandardTestData();
-            form.InitializeData(inputData, null);
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                form.InitializeData(inputData, null);
+            });
         }
 
         [TestMethod]

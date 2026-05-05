@@ -55,7 +55,7 @@ namespace GnuCash.TransactionImportGenerator.Tests.OperationTransferAccountPredi
             A.CallTo(() => fakeTrainingDataQuery.GetTransferAccountPredictionDataAsync()).Returns(operations);
 
             MlNetOperationTransferAccountPredictor trainer = new MlNetOperationTransferAccountPredictor(fakeTrainingDataQuery, 
-                new EveryFifthForTestingSplitStrategy<MlNetPredictionInputRow, MlNetPreSplitPredictionInputRow>(new MlNetPreSplitMappingProfile()));
+                new EveryFifthForTestingSplitStrategy<MlNetPredictionInputRow, MlNetPreSplitPredictionInputRow>(new MlNetPreSplitPredictionInputRowSimpleMapper()));
 
             var modelData = await trainer.CreatePredictionModel();
 
@@ -100,7 +100,7 @@ namespace GnuCash.TransactionImportGenerator.Tests.OperationTransferAccountPredi
             A.CallTo(() => fakeTrainingDataQuery.GetTransferAccountPredictionDataAsync()).Returns(operations);
 
             MlNetOperationTransferAccountPredictor trainer = new MlNetOperationTransferAccountPredictor(fakeTrainingDataQuery,
-                new EveryFifthForTestingSplitStrategy<MlNetPredictionInputRow, MlNetPreSplitPredictionInputRow>(new MlNetPreSplitMappingProfile()));
+                new EveryFifthForTestingSplitStrategy<MlNetPredictionInputRow, MlNetPreSplitPredictionInputRow>(new MlNetPreSplitPredictionInputRowSimpleMapper()));
 
             var modelData = await trainer.CreatePredictionModel();
 
@@ -115,7 +115,7 @@ namespace GnuCash.TransactionImportGenerator.Tests.OperationTransferAccountPredi
             A.CallTo(() => fakeTrainingDataQuery.GetTransferAccountPredictionDataAsync()).Returns(new List<TransferAccountPredictionDataDto>());
 
             MlNetOperationTransferAccountPredictor trainer = new MlNetOperationTransferAccountPredictor(fakeTrainingDataQuery,
-                new EveryFifthForTestingSplitStrategy<MlNetPredictionInputRow, MlNetPreSplitPredictionInputRow>(new MlNetPreSplitMappingProfile()));
+                new EveryFifthForTestingSplitStrategy<MlNetPredictionInputRow, MlNetPreSplitPredictionInputRow>(new MlNetPreSplitPredictionInputRowSimpleMapper()));
 
             var modelData = await trainer.CreatePredictionModel();
 

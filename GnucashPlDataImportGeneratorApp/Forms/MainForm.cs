@@ -33,8 +33,19 @@ namespace GnucashPlDataImportGeneratorApp.Forms
             Cursor.Current = Cursors.WaitCursor;
 
             var generator = _services.GetService<IPriceImportGenerator>();
-            await generator.GenerateImport();
-
+            try
+            {
+                await generator.GenerateImport();
+            }
+            catch (Exception ex)
+            {
+                string message = ex.GetType().Name + " " + ex.Message;
+                if (ex.InnerException != null)
+                {
+                    message += " " + ex.InnerException.Message;
+                }
+                MessageBox.Show(message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             Cursor.Current = defaultCursor;
             button1.Enabled = true;
         }

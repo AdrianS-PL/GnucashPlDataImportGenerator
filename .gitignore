@@ -344,3 +344,5 @@ healthchecksdb
 /tools
 **/CodeCoverageResults/**/*
 PublishResult*/
+
+appsettings.local.json

@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,10 +17,14 @@ namespace StooqWebsite.Model
         {
             var cultureInfo = CultureInfo.InvariantCulture;
 
-            using var reader = new StreamReader(stream, Encoding.ASCII);
-            using var csv = new CsvReader(reader, cultureInfo);            
+            var config = new CsvConfiguration(cultureInfo)
+            {
+                HasHeaderRecord = true
+            };
 
-            csv.Configuration.HasHeaderRecord = true;
+            using var reader = new StreamReader(stream, Encoding.ASCII);
+            using var csv = new CsvReader(reader, config);            
+
             _dataList = csv.GetRecords<StooqDataFileRow>().ToList();
         }
 

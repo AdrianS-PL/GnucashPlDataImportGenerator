@@ -23,7 +23,10 @@ static class Startup
         IConfiguration Configuration = new ConfigurationBuilder()
             .SetBasePath(GetBasePath())
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true)
             .Build();
+
+        services.AddOptions();
 
         services.AddGnuCashDataModel(Configuration);
         services.AddStooqWebsiteClient(Configuration);

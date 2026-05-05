@@ -1,4 +1,6 @@
-﻿using StooqWebsite.Model;
+﻿using Microsoft.Extensions.Options;
+using StooqWebsite.Configuration;
+using StooqWebsite.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +13,14 @@ namespace StooqWebsite
     public class StooqWebsiteClient
     {
 		private readonly HttpClient _httpClient;
+		private readonly StooqWebsiteSettings _settings;
 		const string BaseUrl = @"https://stooq.pl/";
 
-		public StooqWebsiteClient(HttpClient httpClient)
+        public StooqWebsiteClient(HttpClient httpClient, IOptions<StooqWebsiteSettings> settings)
 		{
 			_httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));			
 			_httpClient.BaseAddress = new Uri(BaseUrl);
+			_settings = settings.Value;
 		}
 
 		public async Task<StooqDataFile> GetData(string symbol, DateTime? startDate = null, DateTime? endDate = null)
@@ -30,6 +34,8 @@ namespace StooqWebsite
 				arguments.Add(("d2", endDate.Value.ToString("yyyyMMdd")));
 			}
 			arguments.Add(("i", "d"));
+
+			arguments.Add(("apikey", _settings.ApiKey));
 
 			return await Get(@"q/d/l/", arguments);
 		}

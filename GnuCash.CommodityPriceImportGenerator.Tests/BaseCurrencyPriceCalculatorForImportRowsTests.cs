@@ -19,17 +19,21 @@ namespace GnuCash.CommodityPriceImportGenerator.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Should_ThrowArgumentNullException_When_InputRowsIsNull()
         {
-            BaseCurrencyPriceCalculatorForImportRows.CalculateBaseCurrencyPricesRows(null, "PLN").ToList();
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                BaseCurrencyPriceCalculatorForImportRows.CalculateBaseCurrencyPricesRows(null, "PLN").ToList();
+            });
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Should_ThrowArgumentNullException_When_BaseCurrencyIsNull()
         {
-            BaseCurrencyPriceCalculatorForImportRows.CalculateBaseCurrencyPricesRows(new List<CommodityPriceImportFileRow>(), null).ToList();
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                BaseCurrencyPriceCalculatorForImportRows.CalculateBaseCurrencyPricesRows(new List<CommodityPriceImportFileRow>(), null).ToList();
+            });
         }
 
         [TestMethod]

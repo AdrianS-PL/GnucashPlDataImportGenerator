@@ -28,7 +28,7 @@ namespace GnuCash.TransactionImportGenerator
             services.AddTransient<TransactionImportFileDataGenerator, TransactionImportFileDataGenerator>();
             services.AddOperationsFileParsers();
             services.AddTransient<IOperationTransferAccountPredictor, MlNetOperationTransferAccountPredictor>();
-            services.AddTransient<MlNetPreSplitMappingProfile, MlNetPreSplitMappingProfile>();
+            services.AddSingleton<MlNetPreSplitPredictionInputRowSimpleMapper>();
             services.AddTransient<ITrainingAndTestDataSplitStrategy<MlNetPreSplitPredictionInputRow> , LastMonthDataAsTestDataSplitStrategy>();
 
             return services;

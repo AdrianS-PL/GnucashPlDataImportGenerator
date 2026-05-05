@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using StooqWebsite.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace StooqWebsite.Tests;
 
@@ -27,11 +29,11 @@ public class StooqWebsiteClientTests
 
         Func<HttpRequestMessage, bool> requestPredicate = request =>
         {
-            return request.Method == HttpMethod.Get && request.RequestUri.AbsoluteUri == @"https://stooq.pl/q/d/l/?s=IGLN&i=d";
+            return request.Method == HttpMethod.Get && request.RequestUri.AbsoluteUri == @"https://stooq.pl/q/d/l/?s=IGLN&i=d&apikey=testkey";
         };
 
         var httpHandler = A.Fake<HttpMessageHandler>();
-        var client = new StooqWebsiteClient(new HttpClient(httpHandler));
+        var client = new StooqWebsiteClient(new HttpClient(httpHandler), Options.Create(new StooqWebsiteSettings() { ApiKey = "testkey" }));
 
         A.CallTo(httpHandler).Where(x => x.Method.Name == "SendAsync")
             .WithReturnType<Task<HttpResponseMessage>>().Returns(new HttpResponseMessage(HttpStatusCode.BadRequest));
@@ -49,11 +51,11 @@ public class StooqWebsiteClientTests
 
         Func<HttpRequestMessage, bool> requestPredicate = request =>
         {
-            return request.Method == HttpMethod.Get && request.RequestUri.AbsoluteUri == @"https://stooq.pl/q/d/l/?s=IGLN&d1=20000101&d2=20000131&i=d";
+            return request.Method == HttpMethod.Get && request.RequestUri.AbsoluteUri == @"https://stooq.pl/q/d/l/?s=IGLN&d1=20000101&d2=20000131&i=d&apikey=testkey";
         };
 
         var httpHandler = A.Fake<HttpMessageHandler>();
-        var client = new StooqWebsiteClient(new HttpClient(httpHandler));
+        var client = new StooqWebsiteClient(new HttpClient(httpHandler), Options.Create(new StooqWebsiteSettings() { ApiKey = "testkey" }));
 
         A.CallTo(httpHandler).Where(x => x.Method.Name == "SendAsync")
             .WithReturnType<Task<HttpResponseMessage>>().Returns(new HttpResponseMessage(HttpStatusCode.BadRequest));
@@ -65,33 +67,37 @@ public class StooqWebsiteClientTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(StooqWebsiteException))]
     public async Task Should_ThrowStooqWebsiteException_When_ResponseStatusCodeIsNot200()
     {
         string symbol = "IGLN";
 
         var httpHandler = A.Fake<HttpMessageHandler>();
-        var client = new StooqWebsiteClient(new HttpClient(httpHandler));
+        var client = new StooqWebsiteClient(new HttpClient(httpHandler), Options.Create(new StooqWebsiteSettings()));
 
         A.CallTo(httpHandler).Where(x => x.Method.Name == "SendAsync")
             .WithReturnType<Task<HttpResponseMessage>>().Returns(new HttpResponseMessage(HttpStatusCode.BadRequest));
 
-        await client.GetData(symbol);
+        await Assert.ThrowsAsync<StooqWebsiteException>(async () =>
+        {
+            await client.GetData(symbol);
+        });
     }
 
     [TestMethod]
-    [ExpectedException(typeof(StooqWebsiteException))]
     public async Task Should_ThrowStooqWebsiteException_When_HttpClientThrowsAnyException()
     {
         string symbol = "IGLN";
 
         var httpHandler = A.Fake<HttpMessageHandler>();
-        var client = new StooqWebsiteClient(new HttpClient(httpHandler));
+        var client = new StooqWebsiteClient(new HttpClient(httpHandler), Options.Create(new StooqWebsiteSettings()));
 
         A.CallTo(httpHandler).Where(x => x.Method.Name == "SendAsync")
             .WithReturnType<Task<HttpResponseMessage>>()
             .Throws(new Exception());
 
-        await client.GetData(symbol);
+        await Assert.ThrowsAsync<StooqWebsiteException>(async () =>
+        {
+            await client.GetData(symbol);
+        });
     }
 }

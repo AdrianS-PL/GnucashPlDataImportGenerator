@@ -11,7 +11,7 @@ namespace GnuCash.TransactionImportGenerator.OperationTransferAccountPrediction.
         where PredictionInputType : class where PreSplitInputType : class
 
     {
-        public EveryFifthForTestingSplitStrategy(PreSplitDataMappingProfile<PredictionInputType, PreSplitInputType> mappingProfile) : base(mappingProfile)
+        public EveryFifthForTestingSplitStrategy(SimpleMapper<PredictionInputType, PreSplitInputType> simpleMapper) : base(simpleMapper)
         {
         }
 
